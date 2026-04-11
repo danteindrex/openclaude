@@ -10,3 +10,7 @@ GEMINI.md
 package-lock.json
 /.claude
 coverage/
+webapp/.next/
+webapp/node_modules/
+webapp/test-results/
+webapp/playwright-report/
