@@ -7,6 +7,7 @@ import { getTools } from '../tools.js'
 import { getDefaultAppState } from '../state/AppStateStore.js'
 import { AppState } from '../state/AppState.js'
 import { FileStateCache, READ_FILE_STATE_CACHE_SIZE } from '../utils/fileStateCache.js'
+import { isEnvTruthy } from '../utils/envUtils.js'
 
 const PROTO_PATH = path.resolve(import.meta.dirname, '../proto/openclaude.proto')
 
@@ -43,12 +44,14 @@ export class GrpcServer {
           console.error('Failed to start gRPC server')
           return
         }
+        this.server.start()
         console.log(`gRPC Server running at ${host}:${boundPort}`)
       }
     )
   }
 
   private handleChat(call: grpc.ServerDuplexStream<any, any>) {
+    console.log('[grpc] Chat stream opened')
     let engine: QueryEngine | null = null
     let appState: AppState = getDefaultAppState()
     const fileCache: FileStateCache = new FileStateCache(READ_FILE_STATE_CACHE_SIZE, 25 * 1024 * 1024)
@@ -63,6 +66,14 @@ export class GrpcServer {
 
     call.on('data', async (clientMessage) => {
       try {
+        console.log('[grpc] received client message', JSON.stringify({
+          hasRequest: Boolean(clientMessage.request),
+          hasInput: Boolean(clientMessage.input),
+          hasCancel: Boolean(clientMessage.cancel),
+          sessionId: clientMessage.request?.session_id ?? clientMessage.input?.prompt_id ?? null,
+          workingDirectory: clientMessage.request?.working_directory ?? null,
+          model: clientMessage.request?.model ?? null,
+        }))
         if (clientMessage.request) {
           if (engine) {
             call.write({
@@ -132,6 +143,9 @@ export class GrpcServer {
             readFileCache: fileCache,
             userSpecifiedModel: req.model,
             fallbackModel: req.model,
+            skipSkillsAndPluginsBootstrap: isEnvTruthy(
+              process.env.CLAUDE_CODE_GRPC_MINIMAL,
+            ),
           })
 
           // Track accumulated response data for FinalResponse
@@ -139,9 +153,27 @@ export class GrpcServer {
           let promptTokens = 0
           let completionTokens = 0
 
+          const startedAt = Date.now()
+          console.log('[grpc] submitMessage start', JSON.stringify({
+            sessionId,
+            messageLength: typeof req.message === 'string' ? req.message.length : 0,
+            cwd: req.working_directory || process.cwd(),
+            model: req.model ?? null,
+          }))
           const generator = engine.submitMessage(req.message)
+          let eventCount = 0
 
           for await (const msg of generator) {
+            eventCount += 1
+            if (eventCount <= 5) {
+              console.log('[grpc] generator event', JSON.stringify({
+                sessionId,
+                eventCount,
+                type: msg.type,
+                subtype: (msg as any).subtype ?? null,
+                elapsedMs: Date.now() - startedAt,
+              }))
+            }
             if (msg.type === 'stream_event') {
               if (msg.event.type === 'content_block_delta' && msg.event.delta.type === 'text_delta') {
                 call.write({
@@ -206,6 +238,13 @@ export class GrpcServer {
                 completion_tokens: completionTokens
               }
             })
+            console.log('[grpc] sent done response', JSON.stringify({
+              sessionId,
+              fullText,
+              promptTokens,
+              completionTokens,
+              elapsedMs: Date.now() - startedAt,
+            }))
           }
 
           engine = null
@@ -225,7 +264,7 @@ export class GrpcServer {
           call.end()
         }
       } catch (err: any) {
-        console.error('Error processing stream')
+        console.error('[grpc] Error processing stream', err)
         call.write({
           error: {
             message: err.message || "Internal server error",
@@ -237,6 +276,7 @@ export class GrpcServer {
     })
 
     call.on('end', () => {
+      console.log('[grpc] stream end')
       interrupted = true
       // Unblock any pending permission prompts so canUseTool can return
       for (const resolve of pendingRequests.values()) {

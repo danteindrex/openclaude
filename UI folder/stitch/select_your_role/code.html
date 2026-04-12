@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ElimuCore - Role Selection</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#812900",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#104af0",
+                    "surface": "#f6f9ff",
+                    "on-tertiary-container": "#ffece6",
+                    "tertiary-container": "#c24100",
+                    "outline-variant": "#c4c5d9",
+                    "primary-fixed-dim": "#b8c3ff",
+                    "inverse-on-surface": "#ecf1f8",
+                    "surface-container": "#e9eef5",
+                    "tertiary-fixed": "#ffdbcf",
+                    "on-background": "#171c21",
+                    "tertiary-fixed-dim": "#ffb59b",
+                    "secondary-container": "#9fafff",
+                    "on-secondary": "#ffffff",
+                    "on-surface": "#171c21",
+                    "tertiary": "#993100",
+                    "inverse-primary": "#b8c3ff",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed-dim": "#b8c3ff",
+                    "on-secondary-fixed-variant": "#30418a",
+                    "on-tertiary-fixed": "#380d00",
+                    "surface-container-low": "#eff4fb",
+                    "secondary-fixed": "#dde1ff",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-container-high": "#e4e9f0",
+                    "on-error": "#ffffff",
+                    "surface-dim": "#d5dae1",
+                    "background": "#f6f9ff",
+                    "surface-container-highest": "#dee3ea",
+                    "inverse-surface": "#2b3136",
+                    "on-surface-variant": "#434656",
+                    "primary-fixed": "#dde1ff",
+                    "on-secondary-container": "#2e4088",
+                    "outline": "#747688",
+                    "on-primary-container": "#efefff",
+                    "on-error-container": "#93000a",
+                    "on-primary-fixed-variant": "#0035bd",
+                    "secondary": "#4959a3",
+                    "surface-variant": "#dee3ea",
+                    "primary-container": "#2d5bff",
+                    "on-primary-fixed": "#001355",
+                    "on-secondary-fixed": "#001355",
+                    "primary": "#0040df",
+                    "surface-bright": "#f6f9ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Manrope"],
+                    "body": ["Inter"],
+                    "label": ["Inter"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #f6f9ff;
+            color: #171c21;
+        }
+        .neumorphic-raised {
+            box-shadow: -6px -6px 12px rgba(255, 255, 255, 1), 6px 6px 12px rgba(0, 0, 0, 0.05);
+        }
+        .neumorphic-inset {
+            box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 1);
+        }
+        .neumorphic-raised-hover:hover {
+            box-shadow: -8px -8px 16px rgba(255, 255, 255, 1), 8px 8px 16px rgba(0, 0, 0, 0.08);
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-primary-container selection:text-white min-h-screen flex flex-col overflow-x-hidden">
+<!-- Top Navigation Bar (Simplified for Focused Selection) -->
+<header class="flex justify-between items-center w-full px-8 py-4 sticky top-0 z-50 bg-[#f6f9ff] dark:bg-slate-900 tonal-layering">
+<div class="text-2xl font-black text-[#0040df] dark:text-[#2d5bff] tracking-tighter font-headline">
+            ElimuCore
+        </div>
+<div class="flex items-center gap-6">
+<button class="material-symbols-outlined text-slate-500 hover:text-primary transition-colors duration-200" data-icon="translate">translate</button>
+<button class="material-symbols-outlined text-slate-500 hover:text-primary transition-colors duration-200" data-icon="wifi_off">wifi_off</button>
+</div>
+</header>
+<main class="flex-grow flex items-center justify-center px-6 py-12">
+<div class="max-w-6xl w-full">
+<!-- Header Section -->
+<div class="text-center mb-16 space-y-4">
+<button class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-500 hover:text-primary transition-all duration-300 rounded-full hover:bg-white neumorphic-raised-hover group">
+<span class="material-symbols-outlined text-lg" data-icon="arrow_back">arrow_back</span>
+                    Back to Welcome
+                </button>
+<h1 class="font-headline font-extrabold text-4xl md:text-5xl text-on-background tracking-tight">
+                    Who is learning today?
+                </h1>
+<p class="text-slate-500 max-w-lg mx-auto text-lg">
+                    Select your access level to personalize your educational journey and dashboard settings.
+                </p>
+</div>
+<!-- Role Grid: Bento-style Asymmetric Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
+<!-- Student Card (Primary Focus) -->
+<div class="md:col-span-5 flex">
+<button class="w-full text-left p-10 bg-white rounded-[2rem] neumorphic-raised neumorphic-raised-hover transition-all duration-300 flex flex-col justify-between group">
+<div class="space-y-6">
+<div class="w-16 h-16 rounded-2xl bg-primary-container text-white flex items-center justify-center neumorphic-raised">
+<span class="material-symbols-outlined text-3xl" data-icon="school" data-weight="fill" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<div class="space-y-2">
+<h2 class="font-headline font-bold text-2xl text-on-background">Student</h2>
+<p class="text-slate-500 leading-relaxed">
+                                    Access personalized lessons, track your progress through interactive modules, and interact with the AI tutor for instant support.
+                                </p>
+</div>
+</div>
+<div class="mt-12 flex items-center text-primary font-bold group-hover:translate-x-2 transition-transform duration-300">
+                            Enter Workspace
+                            <span class="material-symbols-outlined ml-2" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</button>
+</div>
+<!-- Facilitator and Admin Column -->
+<div class="md:col-span-7 grid grid-cols-1 gap-8">
+<!-- Facilitator Card -->
+<button class="w-full text-left p-8 bg-white rounded-[2rem] neumorphic-raised neumorphic-raised-hover transition-all duration-300 flex flex-row items-center gap-8 group">
+<div class="flex-shrink-0 w-20 h-20 rounded-full bg-surface-container-high flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-4xl" data-icon="psychology">psychology</span>
+</div>
+<div class="flex-grow space-y-2">
+<h2 class="font-headline font-bold text-xl text-on-background">Facilitator</h2>
+<p class="text-slate-500 text-sm leading-relaxed max-w-md">
+                                Oversee classroom performance, manage educational resources, and provide feedback to help students achieve their potential.
+                            </p>
+</div>
+<div class="hidden sm:block">
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</button>
+<!-- Admin Card -->
+<button class="w-full text-left p-8 bg-white rounded-[2rem] neumorphic-raised neumorphic-raised-hover transition-all duration-300 flex flex-row items-center gap-8 group">
+<div class="flex-shrink-0 w-20 h-20 rounded-full bg-surface-container-high flex items-center justify-center text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-4xl" data-icon="admin_panel_settings">admin_panel_settings</span>
+</div>
+<div class="flex-grow space-y-2">
+<h2 class="font-headline font-bold text-xl text-on-background">Admin</h2>
+<p class="text-slate-500 text-sm leading-relaxed max-w-md">
+                                Manage local databases, configure system-wide security settings, and maintain the offline educational infrastructure for your institution.
+                            </p>
+</div>
+<div class="hidden sm:block">
+<span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors" data-icon="chevron_right">chevron_right</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Visual Separator (Editorial Style) -->
+<div class="mt-24 h-[1px] bg-gradient-to-r from-transparent via-slate-200 to-transparent w-full"></div>
+<!-- Footer Quote Area -->
+<div class="mt-12 text-center">
+<p class="font-headline italic text-slate-400 text-lg">
+                    "Empowering local communities through tactile digital learning."
+                </p>
+</div>
+</div>
+</main>
+<!-- Footer Content -->
+<footer class="w-full py-4 px-8 flex justify-between items-center mt-auto border-t border-transparent tonal-shift">
+<div class="font-['Inter'] text-[10px] uppercase tracking-widest text-slate-400">
+            ElimuCore v1.0.2 - Local Database: Connected
+        </div>
+<div class="flex gap-4">
+<a class="font-['Inter'] text-[10px] uppercase tracking-widest text-slate-400 hover:text-[#2d5bff] transition-colors" href="#">System Status</a>
+<a class="font-['Inter'] text-[10px] uppercase tracking-widest text-slate-400 hover:text-[#2d5bff] transition-colors" href="#">Documentation</a>
+</div>
+</footer>
+<!-- Decorative Elements for Tactile Texture -->
+<div class="fixed top-0 right-0 w-1/3 h-full opacity-5 pointer-events-none z-0 overflow-hidden">
+<img alt="" class="object-cover w-full h-full rotate-6 scale-150" data-alt="abstract architectural geometry with sharp lines and shadows in monochromatic white and grey tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxzC8pGIuMNoT1cohzcn7gsQa3Zzh0cEnyZkM_HkhX1gGIc_FECiWKZl21-vL4zr-WA-AUekNHtlPI1SLBiH7xVIINz_UV6ycippmC-PlCXCXTW4_1wrt6dAciNJIJHuTI_Pzu9h5vk1lXc_mJi_Ra5akbwY4d3urEb6nwJOBlsPWxeIyK2zSSh46jTd8mz5zBvkqnnO2ogbvZATGjXlMZBfONP3hQD4SR4Zw2a3yb7pzoVjwhJpM0b3gsEi-k46_jN54jYynEePZj"/>
+</div>
+</body></html>

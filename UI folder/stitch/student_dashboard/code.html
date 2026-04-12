@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ElimuCore - Student Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#812900",
+                        "error-container": "#ffdad6",
+                        "surface-tint": "#104af0",
+                        "surface": "#f6f9ff",
+                        "on-tertiary-container": "#ffece6",
+                        "tertiary-container": "#c24100",
+                        "outline-variant": "#c4c5d9",
+                        "primary-fixed-dim": "#b8c3ff",
+                        "inverse-on-surface": "#ecf1f8",
+                        "surface-container": "#e9eef5",
+                        "tertiary-fixed": "#ffdbcf",
+                        "on-background": "#171c21",
+                        "tertiary-fixed-dim": "#ffb59b",
+                        "secondary-container": "#9fafff",
+                        "on-secondary": "#ffffff",
+                        "on-surface": "#171c21",
+                        "tertiary": "#993100",
+                        "inverse-primary": "#b8c3ff",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#b8c3ff",
+                        "on-secondary-fixed-variant": "#30418a",
+                        "on-tertiary-fixed": "#380d00",
+                        "surface-container-low": "#eff4fb",
+                        "secondary-fixed": "#dde1ff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e4e9f0",
+                        "on-error": "#ffffff",
+                        "surface-dim": "#d5dae1",
+                        "background": "#f6f9ff",
+                        "surface-container-highest": "#dee3ea",
+                        "inverse-surface": "#2b3136",
+                        "on-surface-variant": "#434656",
+                        "primary-fixed": "#dde1ff",
+                        "on-secondary-container": "#2e4088",
+                        "outline": "#747688",
+                        "on-primary-container": "#efefff",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#0035bd",
+                        "secondary": "#4959a3",
+                        "surface-variant": "#dee3ea",
+                        "primary-container": "#2d5bff",
+                        "on-primary-fixed": "#001355",
+                        "on-secondary-fixed": "#001355",
+                        "primary": "#0040df",
+                        "surface-bright": "#f6f9ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .neumorphic-raised {
+            box-shadow: -6px -6px 12px rgba(255, 255, 255, 1), 6px 6px 12px rgba(0, 0, 0, 0.08);
+        }
+        .neumorphic-inset {
+            box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 1);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #0040df, #2d5bff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-[#f6f9ff] p-6 space-y-4 shadow-[6px_0_12px_rgba(0,0,0,0.05)] z-40">
+<div class="mb-10 flex items-center space-x-3">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center text-white font-black text-xl shadow-lg">E</div>
+<span class="font-headline font-black text-2xl text-primary tracking-tighter uppercase">ElimuCore</span>
+</div>
+<nav class="space-y-3">
+<!-- Active: Dashboard -->
+<a class="flex items-center space-x-3 p-3 bg-primary-container text-white rounded-xl shadow-lg transition-all duration-300 ease-in-out translate-x-1" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center space-x-3 p-3 text-slate-600 hover:bg-slate-200 transition-all duration-300 ease-in-out rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="font-label text-sm font-medium">Courses</span>
+</a>
+<a class="flex items-center space-x-3 p-3 text-slate-600 hover:bg-slate-200 transition-all duration-300 ease-in-out rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+<span class="font-label text-sm font-medium">AI Tutor</span>
+</a>
+<a class="flex items-center space-x-3 p-3 text-slate-600 hover:bg-slate-200 transition-all duration-300 ease-in-out rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="font-label text-sm font-medium">My Progress</span>
+</a>
+<a class="flex items-center space-x-3 p-3 text-slate-600 hover:bg-slate-200 transition-all duration-300 ease-in-out rounded-xl" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 bg-slate-100/50 rounded-2xl p-4 border border-white/50">
+<div class="flex items-center space-x-3 mb-2">
+<img alt="User Profile" class="w-10 h-10 rounded-full object-cover border-2 border-white shadow-sm" data-alt="portrait of a young student smiling in a library with soft natural lighting and warm tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhs5n4-fSslMhLBpKTlNNzKPLRc83LgxowLt0885Zt_iwyYChH7xIotUZlNBYhaAXzD0mmMPpT9Qz-kuewQRsPWvvi-DSS2u8VI0RD_y08ssCJD2cZPloeB7agVbtCSGyhovwi3jl585uFj7JC6SEfCZp8ZwuPsID-tI91dlc36yrRznyDwulkKVQUdyu2J4hjb6np3GGJO9k_9XeljQStgoEPqkQvUxjRtAtjVFx9xamdLr8y0kRzA21doyiI-MrUNL4KMC9k1Zo_"/>
+<div class="overflow-hidden">
+<p class="font-headline font-bold text-sm truncate">The Tactile Scholar</p>
+<p class="text-[10px] text-primary flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>
+                        Offline Mode Active
+                    </p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-8 py-4 sticky top-0 z-30 bg-[#f6f9ff] tonal-layering shadow-[-6px_-6px_12px_rgba(255,255,255,1),6px_6px_12px_rgba(0,0,0,0.05)]">
+<h1 class="font-headline font-bold text-lg tracking-tight text-[#0040df]">Student Dashboard</h1>
+<div class="flex items-center space-x-4">
+<button class="p-2 text-slate-500 hover:scale-[1.02] transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="wifi_off">wifi_off</span>
+</button>
+<button class="p-2 text-slate-500 hover:scale-[1.02] transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="translate">translate</span>
+</button>
+<button class="p-2 text-[#0040df] hover:scale-[1.02] transition-transform duration-200">
+<span class="material-symbols-outlined text-2xl" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Dashboard Canvas -->
+<div class="p-8 space-y-10">
+<!-- Welcome Section -->
+<section class="max-w-6xl mx-auto">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<h2 class="font-headline text-4xl md:text-5xl font-extrabold text-on-surface tracking-tight mb-2">Habari, Musana!</h2>
+<p class="text-on-surface-variant text-lg">Ready to continue? You're doing great today.</p>
+</div>
+<div class="flex gap-4">
+<div class="neumorphic-raised bg-surface-container-lowest p-4 rounded-2xl flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-orange-100 flex items-center justify-center text-orange-600">
+<span class="material-symbols-outlined" data-icon="local_fire_department" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</div>
+<div>
+<p class="text-[10px] uppercase tracking-widest text-outline">Day Streak</p>
+<p class="font-headline font-bold text-xl">12 Days</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Layout -->
+<section class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8">
+<!-- Resume Learning Card (Large) -->
+<div class="md:col-span-8 group">
+<div class="neumorphic-raised bg-surface-container-lowest rounded-2xl p-1 h-full overflow-hidden flex flex-col">
+<div class="relative h-64 rounded-xl overflow-hidden m-2">
+<img alt="Python Course" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="modern computer screen displaying complex lines of code in a dimly lit tech workspace" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYs50YVwMR8SzEqefOmTl63lwFF6K6f55o_vwFjskxiLOYRZvzA39VUjyu2yGZ9dOn_WPLkukYp8jVnbDsuRdx5emNX_RDqfBuPzp5G3UDpuKpXXClh9XhAG4QbgNavlnRX4Z2ihp-IykFXvWF6Q7xLq7mvTnoe71i-oRpmSoxv8v42imphKsVtAKJmolOxRJHm5bGc-kX-7jjm7uqUM3YuBxbErwp-GAWb_Jw4PqfR4ZvU4CvYTHLeOLRzEZdIJjZLHzDlLkBJlRa"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-8">
+<div>
+<span class="bg-primary text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-3 inline-block">Recently Viewed</span>
+<h3 class="text-white font-headline text-3xl font-bold">Python Basics</h3>
+<p class="text-white/80 font-medium">Module 4: Loops and Logic</p>
+</div>
+</div>
+</div>
+<div class="px-8 py-6 flex-1 flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<div class="w-full mr-4">
+<div class="flex justify-between mb-1">
+<span class="text-sm font-medium text-primary">Course Progress</span>
+<span class="text-sm font-bold">64%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full neumorphic-inset overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container rounded-full" style="width: 64%"></div>
+</div>
+</div>
+<button class="bg-primary text-white px-8 py-3 rounded-xl font-bold shadow-lg hover:scale-[1.02] active:scale-95 transition-all">Resume</button>
+</div>
+</div>
+</div>
+</div>
+<!-- ElimuBot Tips (Medium) -->
+<div class="md:col-span-4 space-y-8">
+<div class="neumorphic-raised bg-surface-container-lowest rounded-2xl p-8 h-full border-t-4 border-primary-container relative overflow-hidden">
+<div class="absolute -right-4 -top-4 opacity-5">
+<span class="material-symbols-outlined text-[120px]" data-icon="smart_toy">smart_toy</span>
+</div>
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+</div>
+<h3 class="font-headline font-bold text-lg">ElimuBot Tips</h3>
+</div>
+<p class="text-on-surface-variant italic mb-6 leading-relaxed">
+                            "Musana, it's 10 AM. Studies show that solving one coding challenge now could improve your retention of loops by 40%!"
+                        </p>
+<div class="neumorphic-inset bg-surface-container rounded-xl p-4">
+<p class="text-xs font-bold text-primary mb-1 uppercase tracking-wider">Local Suggestion</p>
+<p class="text-sm font-medium text-on-surface">Try the 'Daily Loop' micro-challenge. (1.2MB, cached)</p>
+</div>
+</div>
+</div>
+<!-- Progress Overview Widget -->
+<div class="md:col-span-4">
+<div class="neumorphic-raised bg-surface-container-lowest rounded-2xl p-8 flex flex-col items-center text-center">
+<h3 class="font-headline font-bold text-lg mb-6 w-full text-left">Mastery Level</h3>
+<div class="relative w-40 h-40 flex items-center justify-center mb-6">
+<svg class="w-full h-full -rotate-90">
+<circle class="text-surface-container-high" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-primary" cx="80" cy="80" fill="transparent" r="70" stroke="currentColor" stroke-dasharray="440" stroke-dashoffset="110" stroke-width="12"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="text-3xl font-black text-primary">75%</span>
+<span class="text-[10px] uppercase font-bold text-outline">Overall</span>
+</div>
+</div>
+<div class="flex gap-2 w-full justify-center">
+<div class="w-8 h-8 rounded-lg bg-yellow-100 flex items-center justify-center text-yellow-600" title="Course Finisher">
+<span class="material-symbols-outlined text-sm" data-icon="workspace_premium" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+</div>
+<div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600" title="Quick Learner">
+<span class="material-symbols-outlined text-sm" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600" title="Community Helper">
+<span class="material-symbols-outlined text-sm" data-icon="groups" style="font-variation-settings: 'FILL' 1;">groups</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Course Highlights Grid -->
+<div class="md:col-span-8">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline font-bold text-xl">Course Highlights</h3>
+<button class="text-primary text-sm font-bold hover:underline">View All</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+<!-- Course Item 1 -->
+<div class="neumorphic-raised bg-surface-container-lowest rounded-2xl p-4 flex gap-4 hover:scale-[1.01] transition-all cursor-pointer">
+<div class="w-20 h-20 rounded-xl bg-slate-100 overflow-hidden flex-shrink-0">
+<img alt="Data Science" class="w-full h-full object-cover" data-alt="colorful abstract financial data charts and graphs displayed on a sleek digital interface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2lwvdcTjDNQ0z2cVdJEZB7f9HvZdl3nhTwh_1hl6D3dhE_j1lBHCQPbvkKFFFbqB0CmXmomcJabEV2-7su-OR5Rz_yhzW7CLamSpLU48tbz679IE51YyyymTq8K4aFJc5Sf2y5e9qAtuNwzBqbGzEB9Ptf-vhIuPzhjz_mDvJvs85eVvTwFuXkFx_0rQYcUWXTYrmDqK24hSLEPDmE89VyVZxTq3vuGx_gV2pZJU_AhEIKeAnk2YkMl8fyEiWiiBJRTI4Kb9nQjlv"/>
+</div>
+<div class="flex flex-col justify-center">
+<h4 class="font-headline font-bold text-base leading-tight">Data Science 101</h4>
+<p class="text-xs text-on-surface-variant mb-2">12 Lessons left</p>
+<div class="h-1.5 w-24 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-1/3 rounded-full"></div>
+</div>
+</div>
+</div>
+<!-- Course Item 2 -->
+<div class="neumorphic-raised bg-surface-container-lowest rounded-2xl p-4 flex gap-4 hover:scale-[1.01] transition-all cursor-pointer">
+<div class="w-20 h-20 rounded-xl bg-slate-100 overflow-hidden flex-shrink-0">
+<img alt="Web Dev" class="w-full h-full object-cover" data-alt="clean overhead view of a minimalist workspace with a laptop and a notebook on a white desk" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE74qoTHT23BTbvbSBX_jAoS5Z007Hp1vkOay02oCdSkrVmQa-UAXS9mtHSeiV9yq6tGLUR9NR5_YrH_uVmKBwaCtvXHvKOrR7dVqsHkLdSC1t3iO1iCnhtn8fKfq7pNwhJX0AIuFe9sE0ksEp0jQsAk43XVxsNEZsZv292isWQSBqyAP5Dc-4opQitdh-gENS1Ab0oQbflY-8RfFp280_sHodyTh10FUnDOzcgBJ9dCN50ZKDYse_2ReeZzbbbdBtrEGzkkTdj71I"/>
+</div>
+<div class="flex flex-col justify-center">
+<h4 class="font-headline font-bold text-base leading-tight">Modern Web Dev</h4>
+<p class="text-xs text-on-surface-variant mb-2">Not started</p>
+<div class="h-1.5 w-24 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container/20 w-0 rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="w-full py-4 px-8 flex justify-between items-center mt-auto bg-[#f6f9ff] tonal-shift-surface-container-low">
+<p class="font-body text-[10px] uppercase tracking-widest text-slate-400">ElimuCore v1.0.2 - Local Database: Connected</p>
+<div class="flex space-x-6">
+<a class="font-body text-[10px] uppercase tracking-widest text-slate-400 hover:text-[#2d5bff]" href="#">System Status</a>
+<a class="font-body text-[10px] uppercase tracking-widest text-slate-400 hover:text-[#2d5bff]" href="#">Documentation</a>
+</div>
+</footer>
+</main>
+<!-- Contextual FAB (Only on relevant screens) -->
+<button class="fixed bottom-8 right-8 w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary-container text-white shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all z-50">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</button>
+</body></html>

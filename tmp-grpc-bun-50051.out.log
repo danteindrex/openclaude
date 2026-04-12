@@ -1,0 +1,12 @@
+Starting OpenClaude gRPC Server...
+gRPC Server running at localhost:50051
+[grpc] Chat stream opened
+[grpc] received client message {"hasRequest":true,"hasInput":false,"hasCancel":false,"sessionId":"cli-session-1","workingDirectory":"C:\\Users\\user\\Documents\\elimo ai\\openclaude","model":null}
+[grpc] submitMessage start {"sessionId":"cli-session-1","messageLength":32,"cwd":"C:\\Users\\user\\Documents\\elimo ai\\openclaude","model":null}
+[grpc] generator event {"sessionId":"cli-session-1","eventCount":1,"type":"system","subtype":"init","elapsedMs":86}
+[grpc] generator event {"sessionId":"cli-session-1","eventCount":2,"type":"stream_event","subtype":null,"elapsedMs":47299}
+[grpc] generator event {"sessionId":"cli-session-1","eventCount":3,"type":"stream_event","subtype":null,"elapsedMs":49578}
+[grpc] generator event {"sessionId":"cli-session-1","eventCount":4,"type":"stream_event","subtype":null,"elapsedMs":49579}
+[grpc] generator event {"sessionId":"cli-session-1","eventCount":5,"type":"assistant","subtype":null,"elapsedMs":49676}
+[grpc] sent done response {"sessionId":"cli-session-1","fullText":"READY","promptTokens":0,"completionTokens":0,"elapsedMs":49696}
+[grpc] stream end

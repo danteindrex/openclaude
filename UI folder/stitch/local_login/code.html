@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ElimuCore - Local Profile Access</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed-variant": "#812900",
+                      "error-container": "#ffdad6",
+                      "surface-tint": "#104af0",
+                      "surface": "#f6f9ff",
+                      "on-tertiary-container": "#ffece6",
+                      "tertiary-container": "#c24100",
+                      "outline-variant": "#c4c5d9",
+                      "primary-fixed-dim": "#b8c3ff",
+                      "inverse-on-surface": "#ecf1f8",
+                      "surface-container": "#e9eef5",
+                      "tertiary-fixed": "#ffdbcf",
+                      "on-background": "#171c21",
+                      "tertiary-fixed-dim": "#ffb59b",
+                      "secondary-container": "#9fafff",
+                      "on-secondary": "#ffffff",
+                      "on-surface": "#171c21",
+                      "tertiary": "#993100",
+                      "inverse-primary": "#b8c3ff",
+                      "on-primary": "#ffffff",
+                      "secondary-fixed-dim": "#b8c3ff",
+                      "on-secondary-fixed-variant": "#30418a",
+                      "on-tertiary-fixed": "#380d00",
+                      "surface-container-low": "#eff4fb",
+                      "secondary-fixed": "#dde1ff",
+                      "on-tertiary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "error": "#ba1a1a",
+                      "surface-container-high": "#e4e9f0",
+                      "on-error": "#ffffff",
+                      "surface-dim": "#d5dae1",
+                      "background": "#f6f9ff",
+                      "surface-container-highest": "#dee3ea",
+                      "inverse-surface": "#2b3136",
+                      "on-surface-variant": "#434656",
+                      "primary-fixed": "#dde1ff",
+                      "on-secondary-container": "#2e4088",
+                      "outline": "#747688",
+                      "on-primary-container": "#efefff",
+                      "on-error-container": "#93000a",
+                      "on-primary-fixed-variant": "#0035bd",
+                      "secondary": "#4959a3",
+                      "surface-variant": "#dee3ea",
+                      "primary-container": "#2d5bff",
+                      "on-primary-fixed": "#001355",
+                      "on-secondary-fixed": "#001355",
+                      "primary": "#0040df",
+                      "surface-bright": "#f6f9ff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "fontFamily": {
+                      "headline": ["Manrope"],
+                      "body": ["Inter"],
+                      "label": ["Inter"]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            vertical-align: middle;
+        }
+        .neumorphic-raised {
+            box-shadow: -6px -6px 12px rgba(255, 255, 255, 1), 6px 6px 12px rgba(0, 0, 0, 0.08);
+        }
+        .neumorphic-inset {
+            box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.05), inset -4px -4px 8px rgba(255, 255, 255, 1);
+        }
+        .neumorphic-avatar {
+            box-shadow: -4px -4px 8px rgba(255, 255, 255, 1), 4px 4px 8px rgba(0, 0, 0, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen flex flex-col">
+<!-- Top Navigation Bar (Suppressed but simplified for header logic as per Shell rules) -->
+<header class="bg-[#f6f9ff] flex justify-between items-center w-full px-8 py-6 sticky top-0 z-50 tonal-layering">
+<div class="font-headline font-black text-[#0040df] text-2xl tracking-tighter">ElimuCore</div>
+<div class="flex items-center gap-6">
+<button class="flex items-center gap-2 px-4 py-2 rounded-xl text-slate-500 hover:scale-[1.02] transition-transform duration-200">
+<span class="material-symbols-outlined">translate</span>
+<span class="text-sm font-medium">English</span>
+</button>
+<div class="flex items-center gap-2 px-3 py-1 bg-surface-container rounded-full shadow-sm">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">wifi_off</span>
+<span class="text-[10px] font-headline font-bold uppercase tracking-widest text-primary">Offline Mode</span>
+</div>
+</div>
+</header>
+<main class="flex-grow flex items-center justify-center p-6">
+<div class="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+<!-- Left Column: Recent Learners (Asymmetric Layout) -->
+<div class="lg:col-span-5 space-y-8">
+<div>
+<h1 class="font-headline font-extrabold text-4xl text-primary tracking-tight leading-tight mb-2">Local Profile Access</h1>
+<p class="text-on-surface-variant text-lg">Select your profile to continue your learning journey on this device.</p>
+</div>
+<div class="space-y-6">
+<h3 class="font-headline font-bold text-sm uppercase tracking-widest text-slate-500">Recent Learners</h3>
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+<!-- Profile Card 1 -->
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-full p-1 neumorphic-avatar group-hover:scale-105 transition-transform duration-300">
+<img class="w-full h-full object-cover rounded-full" data-alt="Close-up portrait of a young student smiling warmly in a bright classroom setting with soft natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjlXaG8ZXTsnWtBsZ3iUsjtj5hSq2qZ8xuWAckNPbIPbdn1o1LT3quzT9jPEhjsxoP83jPrY7b8Ds6t4BHfmeqS5UhTJzXD_qoSy4w3NDibQWeEg7esmMh0Km28ctsyKlMriAMswtzOYruiNdCjByL0pv7jkiGgAVUpOmf_QIFeabweDEhJnn12s35hqb2z0p7yIXM2O1b_TDGeUpXjAIppt3hBFOrQhtHGbxcDq8Tr312x7A5GNKf92GP0Ns2VXlf0Oply7dUXgpX"/>
+</div>
+<p class="mt-4 text-center font-medium text-on-surface">Amara</p>
+<p class="text-center text-[10px] uppercase tracking-tighter text-secondary">Level 4 Scholar</p>
+</div>
+<!-- Profile Card 2 -->
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-full p-1 neumorphic-avatar group-hover:scale-105 transition-transform duration-300">
+<img class="w-full h-full object-cover rounded-full" data-alt="Young boy with glasses looking curiously at a digital tablet with soft blue light reflecting on his face" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuuimPaBsJCtP9_MVKj0qen-uXRTozsrKvg3wFysx7CCXe35VrzB_AdxBnuGI5H4R867G4Iy177zIFzngcmb7wb5eH_Tj6Whq4LwBvK3IQfB1eHUnkaV9_xYXJg263GJEMVQlyMUivmvwURFYbhNSiIpa2p9-oHlVxSRD4QpDw4KNKsCinNug90DzADUeCqVskgrI2Jtghnww83hNELyb7to3Llq0XDd2-PuYOMObqBLNBPM3MIHTe7V-ELD0cQf9eCvYNhNZRH4QY"/>
+</div>
+<p class="mt-4 text-center font-medium text-on-surface">Kofi</p>
+<p class="text-center text-[10px] uppercase tracking-tighter text-secondary">Level 2 Scholar</p>
+</div>
+<!-- Add New Profile Button -->
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-full flex items-center justify-center neumorphic-inset group-hover:scale-105 transition-transform duration-300 border-2 border-dashed border-outline-variant/30">
+<span class="material-symbols-outlined text-outline text-3xl">add</span>
+</div>
+<p class="mt-4 text-center font-medium text-outline">New Learner</p>
+</div>
+</div>
+</div>
+<!-- Offline Security Badge -->
+<div class="p-6 bg-surface-container-low rounded-xl border border-white/40 flex items-start gap-4 shadow-sm">
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<h4 class="font-headline font-bold text-sm text-on-surface">Offline Security Active</h4>
+<p class="text-xs text-on-surface-variant leading-relaxed">Your biometric data and progress never leave this hardware. All encryption keys are stored locally within the ElimuCore vault.</p>
+</div>
+</div>
+</div>
+<!-- Right Column: Admin/Facilitator Login (Tactile Neumorphic Form) -->
+<div class="lg:col-span-7">
+<div class="bg-surface-container-lowest p-10 rounded-[2rem] neumorphic-raised relative overflow-hidden">
+<!-- Subtle Decorative Background Gradient -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-3 mb-8">
+<span class="material-symbols-outlined text-primary">admin_panel_settings</span>
+<h2 class="font-headline font-bold text-xl text-on-surface">Facilitator Access</h2>
+</div>
+<form class="space-y-8">
+<div class="space-y-2">
+<label class="font-label text-sm font-semibold text-slate-600 ml-1">Username / Identifier</label>
+<div class="neumorphic-inset rounded-2xl flex items-center px-6 py-4 transition-all focus-within:ring-2 focus-within:ring-primary/20">
+<span class="material-symbols-outlined text-outline mr-4">person</span>
+<input class="bg-transparent border-none focus:ring-0 w-full text-on-surface placeholder:text-outline-variant font-medium" placeholder="e.g. Lead_Facilitator_01" type="text"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label text-sm font-semibold text-slate-600 ml-1">Secure Pin / Password</label>
+<div class="neumorphic-inset rounded-2xl flex items-center px-6 py-4 transition-all focus-within:ring-2 focus-within:ring-primary/20">
+<span class="material-symbols-outlined text-outline mr-4">lock</span>
+<input class="bg-transparent border-none focus:ring-0 w-full text-on-surface placeholder:text-outline-variant font-medium" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="w-6 h-6 neumorphic-inset rounded-md flex items-center justify-center transition-all group-hover:scale-105">
+<div class="w-3 h-3 bg-primary rounded-sm opacity-0 group-hover:opacity-20 transition-opacity"></div>
+</div>
+<span class="text-sm font-medium text-on-surface-variant">Remember device</span>
+</label>
+<a class="text-sm font-semibold text-primary hover:underline underline-offset-4" href="#">Reset Access</a>
+</div>
+<button class="w-full py-5 px-8 rounded-2xl bg-gradient-to-br from-primary to-primary-container text-white font-headline font-bold text-lg shadow-lg hover:scale-[1.02] active:scale-95 transition-all duration-300 flex items-center justify-center gap-3" type="submit">
+<span class="material-symbols-outlined">login</span>
+                                Authorize Session
+                            </button>
+</form>
+<div class="mt-10 pt-8 border-t border-surface-container-highest flex flex-col sm:flex-row gap-6 justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 bg-[#4959a3] rounded-full animate-pulse"></div>
+<span class="text-[10px] font-label font-bold uppercase tracking-widest text-secondary">Local Database: Connected</span>
+</div>
+<div class="flex gap-4">
+<button class="p-2 neumorphic-raised rounded-xl text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'opsz' 20;">help</span>
+</button>
+<button class="p-2 neumorphic-raised rounded-xl text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'opsz' 20;">settings</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Cluster -->
+<footer class="w-full py-6 px-8 flex flex-col md:flex-row justify-between items-center mt-auto gap-4">
+<div class="font-['Inter'] text-[10px] uppercase tracking-widest text-slate-400">
+            ElimuCore v1.0.2 - Educational Integrity Framework
+        </div>
+<div class="flex gap-8">
+<a class="font-['Inter'] text-[10px] uppercase tracking-widest text-slate-400 hover:text-[#2d5bff] transition-colors" href="#">System Status</a>
+<a class="font-['Inter'] text-[10px] uppercase tracking-widest text-slate-400 hover:text-[#2d5bff] transition-colors" href="#">Documentation</a>
+</div>
+</footer>
+</body></html>

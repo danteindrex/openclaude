@@ -7,6 +7,10 @@ const originalEnv = {
   OPENAI_BASE_URL: process.env.OPENAI_BASE_URL,
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   OPENAI_MODEL: process.env.OPENAI_MODEL,
+  OLLAMA_BASE_URL: process.env.OLLAMA_BASE_URL,
+  OLLAMA_NUM_CTX: process.env.OLLAMA_NUM_CTX,
+  OLLAMA_NUM_PREDICT: process.env.OLLAMA_NUM_PREDICT,
+  OLLAMA_KEEP_ALIVE: process.env.OLLAMA_KEEP_ALIVE,
   CLAUDE_CODE_USE_GEMINI: process.env.CLAUDE_CODE_USE_GEMINI,
   GEMINI_API_KEY: process.env.GEMINI_API_KEY,
   GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
@@ -70,6 +74,10 @@ beforeEach(() => {
   process.env.OPENAI_BASE_URL = 'http://example.test/v1'
   process.env.OPENAI_API_KEY = 'test-key'
   delete process.env.OPENAI_MODEL
+  delete process.env.OLLAMA_BASE_URL
+  delete process.env.OLLAMA_NUM_CTX
+  delete process.env.OLLAMA_NUM_PREDICT
+  delete process.env.OLLAMA_KEEP_ALIVE
   delete process.env.CLAUDE_CODE_USE_GEMINI
   delete process.env.GEMINI_API_KEY
   delete process.env.GOOGLE_API_KEY
@@ -84,6 +92,10 @@ afterEach(() => {
   restoreEnv('OPENAI_BASE_URL', originalEnv.OPENAI_BASE_URL)
   restoreEnv('OPENAI_API_KEY', originalEnv.OPENAI_API_KEY)
   restoreEnv('OPENAI_MODEL', originalEnv.OPENAI_MODEL)
+  restoreEnv('OLLAMA_BASE_URL', originalEnv.OLLAMA_BASE_URL)
+  restoreEnv('OLLAMA_NUM_CTX', originalEnv.OLLAMA_NUM_CTX)
+  restoreEnv('OLLAMA_NUM_PREDICT', originalEnv.OLLAMA_NUM_PREDICT)
+  restoreEnv('OLLAMA_KEEP_ALIVE', originalEnv.OLLAMA_KEEP_ALIVE)
   restoreEnv('CLAUDE_CODE_USE_GEMINI', originalEnv.CLAUDE_CODE_USE_GEMINI)
   restoreEnv('GEMINI_API_KEY', originalEnv.GEMINI_API_KEY)
   restoreEnv('GOOGLE_API_KEY', originalEnv.GOOGLE_API_KEY)
@@ -169,6 +181,115 @@ test('preserves usage from final OpenAI stream chunk with empty choices', async 
   expect(usageEvent).toBeDefined()
   expect(usageEvent?.usage?.input_tokens).toBe(123)
   expect(usageEvent?.usage?.output_tokens).toBe(45)
+})
+
+test('adds latency-oriented Ollama overrides for local OpenAI-compatible requests', async () => {
+  let requestBody: Record<string, unknown> | undefined
+
+  process.env.OPENAI_BASE_URL = 'http://localhost:11434/v1'
+  process.env.OLLAMA_NUM_CTX = '1024'
+  process.env.OLLAMA_NUM_PREDICT = '64'
+  process.env.OLLAMA_KEEP_ALIVE = '30m'
+
+  globalThis.fetch = (async (_input, init) => {
+    requestBody = JSON.parse(String(init?.body))
+
+    return new Response(
+      JSON.stringify({
+        id: 'chatcmpl-ollama',
+        model: 'qwen3.5:0.8b',
+        choices: [
+          {
+            message: {
+              role: 'assistant',
+              content: 'ready',
+            },
+            finish_reason: 'stop',
+          },
+        ],
+        usage: {
+          prompt_tokens: 8,
+          completion_tokens: 4,
+          total_tokens: 12,
+        },
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+  }) as FetchType
+
+  const client = createOpenAIShimClient({}) as OpenAIShimClient
+
+  await client.beta.messages.create({
+    model: 'qwen3.5:0.8b',
+    messages: [{ role: 'user', content: 'hello' }],
+    max_tokens: 512,
+    stream: false,
+  })
+
+  expect(requestBody?.keep_alive).toBe('30m')
+  expect(requestBody?.max_tokens).toBe(64)
+  expect(requestBody?.max_completion_tokens).toBe(512)
+  expect(requestBody?.options).toEqual({
+    num_ctx: 1024,
+    num_predict: 64,
+  })
+})
+
+test('caps Ollama num_predict to the requested max token budget', async () => {
+  let requestBody: Record<string, unknown> | undefined
+
+  process.env.OPENAI_BASE_URL = 'http://localhost:11434/v1'
+  process.env.OLLAMA_NUM_CTX = '2048'
+  process.env.OLLAMA_NUM_PREDICT = '64'
+
+  globalThis.fetch = (async (_input, init) => {
+    requestBody = JSON.parse(String(init?.body))
+
+    return new Response(
+      JSON.stringify({
+        id: 'chatcmpl-ollama-capped',
+        model: 'qwen3.5:0.8b',
+        choices: [
+          {
+            message: {
+              role: 'assistant',
+              content: 'ok',
+            },
+            finish_reason: 'stop',
+          },
+        ],
+        usage: {
+          prompt_tokens: 3,
+          completion_tokens: 2,
+          total_tokens: 5,
+        },
+      }),
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+  }) as FetchType
+
+  const client = createOpenAIShimClient({}) as OpenAIShimClient
+
+  await client.beta.messages.create({
+    model: 'qwen3.5:0.8b',
+    messages: [{ role: 'user', content: 'hello' }],
+    max_tokens: 12,
+    stream: false,
+  })
+
+  expect(requestBody?.max_tokens).toBe(12)
+  expect(requestBody?.options).toEqual({
+    num_ctx: 2048,
+    num_predict: 12,
+  })
 })
 
 test('preserves Gemini tool call extra_content in follow-up requests', async () => {

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ElimuBot | Local AI Tutor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#171c21",
+                        "outline-variant": "#c4c5d9",
+                        "inverse-surface": "#2b3136",
+                        "tertiary": "#993100",
+                        "on-error-container": "#93000a",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed": "#001355",
+                        "tertiary-fixed-dim": "#ffb59b",
+                        "secondary-container": "#9fafff",
+                        "on-secondary-fixed-variant": "#30418a",
+                        "on-error": "#ffffff",
+                        "secondary": "#4959a3",
+                        "on-tertiary-fixed-variant": "#812900",
+                        "on-primary-container": "#efefff",
+                        "inverse-primary": "#b8c3ff",
+                        "inverse-on-surface": "#ecf1f8",
+                        "primary-fixed": "#dde1ff",
+                        "tertiary-fixed": "#ffdbcf",
+                        "on-background": "#171c21",
+                        "primary-container": "#2d5bff",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#dde1ff",
+                        "surface-dim": "#d5dae1",
+                        "surface-tint": "#104af0",
+                        "surface": "#f6f9ff",
+                        "on-tertiary-container": "#ffece6",
+                        "on-primary-fixed-variant": "#0035bd",
+                        "background": "#f6f9ff",
+                        "primary-fixed-dim": "#b8c3ff",
+                        "tertiary-container": "#c24100",
+                        "surface-container": "#e9eef5",
+                        "surface-bright": "#f6f9ff",
+                        "on-primary": "#ffffff",
+                        "surface-container-low": "#eff4fb",
+                        "secondary-fixed-dim": "#b8c3ff",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#434656",
+                        "outline": "#747688",
+                        "surface-container-high": "#e4e9f0",
+                        "surface-container-highest": "#dee3ea",
+                        "primary": "#0040df",
+                        "on-secondary-container": "#2e4088",
+                        "surface-variant": "#dee3ea",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed": "#380d00",
+                        "on-secondary-fixed": "#001355",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .neumorphic-raised {
+            box-shadow: -6px -6px 12px #ffffff, 6px 6px 12px #d1d9e6;
+        }
+        .dark .neumorphic-raised {
+            box-shadow: none;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .neumorphic-inset {
+            box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff;
+        }
+        .dark .neumorphic-inset {
+            box-shadow: inset 2px 2px 4px rgba(0,0,0,0.4);
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #0040df 0%, #2d5bff 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface flex h-screen overflow-hidden">
+<!-- SideNavBar (Shared Component Blueprint) -->
+<aside class="fixed flex flex-col h-full p-4 gap-4 bg-slate-50 dark:bg-slate-900 h-screen w-72 left-0 shadow-[-6px_-6px_12px_#ffffff,6px_6px_12px_#d1d9e6] dark:shadow-none z-20">
+<!-- Brand Header -->
+<div class="flex items-center gap-3 px-2 py-4">
+<div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-on-primary-container neumorphic-raised">
+<span class="material-symbols-outlined" data-icon="school" style="font-variation-settings: 'FILL' 1;">school</span>
+</div>
+<div>
+<h1 class="text-xl font-bold text-slate-900 dark:text-white font-headline">ElimuBot</h1>
+<p class="text-xs text-secondary font-medium uppercase tracking-widest">Local AI Status: Ready</p>
+</div>
+</div>
+<button class="flex items-center gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-400 rounded-xl shadow-[inset_4px_4px_8px_#d1d9e6,inset_-4px_-4px_8px_#ffffff] dark:shadow-none transition-all cursor-pointer">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+<span class="font-medium">New Chat</span>
+</button>
+<!-- Navigation Links -->
+<nav class="flex-1 flex flex-col gap-1 py-4">
+<div class="text-slate-600 dark:text-slate-400 hover:text-blue-600 px-4 py-3 rounded-xl flex items-center gap-3 transition-transform hover:translate-x-1 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span>Chat History</span>
+</div>
+<div class="text-slate-600 dark:text-slate-400 hover:text-blue-600 px-4 py-3 rounded-xl flex items-center gap-3 transition-transform hover:translate-x-1 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span>Learning Modes</span>
+</div>
+<div class="text-slate-600 dark:text-slate-400 hover:text-blue-600 px-4 py-3 rounded-xl flex items-center gap-3 transition-transform hover:translate-x-1 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="memory">memory</span>
+<span>AI Models</span>
+</div>
+</nav>
+<!-- Footer Actions -->
+<div class="mt-auto border-t border-surface-container pt-4 flex flex-col gap-1">
+<div class="px-4 py-6 mb-4 rounded-2xl bg-surface-container-low neumorphic-inset text-center">
+<p class="text-xs text-on-surface-variant mb-2">Private &amp; Encrypted</p>
+<div class="flex items-center justify-center gap-2 text-primary">
+<span class="material-symbols-outlined text-sm" data-icon="lock">lock</span>
+<span class="text-[10px] font-bold uppercase">100% On-Device</span>
+</div>
+</div>
+<div class="text-slate-600 dark:text-slate-400 hover:text-blue-600 px-4 py-2 flex items-center gap-3 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</div>
+<div class="text-slate-600 dark:text-slate-400 hover:text-blue-600 px-4 py-2 flex items-center gap-3 cursor-pointer">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span>Logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-72 relative flex flex-col h-screen overflow-hidden bg-surface">
+<!-- TopBar -->
+<header class="flex justify-between items-center w-full px-8 h-20 bg-slate-50/80 backdrop-blur-md sticky top-0 z-10">
+<div class="flex flex-col">
+<h2 class="text-2xl font-black text-blue-700 dark:text-blue-400 font-headline tracking-tight">Introduction to Calculus</h2>
+<p class="text-sm text-on-surface-variant font-medium">Module 4: Limits and Continuity</p>
+</div>
+<div class="flex items-center gap-4">
+<!-- Model Status Floating Card -->
+<div class="neumorphic-raised bg-surface-container-lowest px-4 py-2 rounded-2xl flex items-center gap-3">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
+<span class="text-xs font-bold text-on-surface-variant">Ollama: Ready</span>
+</div>
+<div class="w-px h-4 bg-outline-variant"></div>
+<span class="text-xs font-medium text-secondary">Model: llama3</span>
+</div>
+<button class="w-10 h-10 neumorphic-raised rounded-xl flex items-center justify-center text-on-surface-variant hover:text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<div class="w-10 h-10 rounded-full neumorphic-raised border-2 border-white overflow-hidden">
+<img alt="User Profile" data-alt="Close up portrait of a young professional smiling softly with neutral background and cinematic soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhnSMu-m8eAdOgXv6QeHh1r6ZFtKRZuD1EzX8CPX1KBQd9WcNLScdlNOvcLxggbNfEUJe4eqZ3R2fjbKG-r1V6xDry902-RFDpUD8D9S-RPcZxdXMdOM88rDvJpeXOv3t5TixkqwyaHcBey3ZyYtG1bXCGpXmtppLKxb6rB5C9obbgoGl3W7XP0oRvol_BCSkyZg7OkvzvyjcXqD1N-cnRk00cq7sm5J7UrQAIod0j9q8OgIvgO5W_rsJtEOnkWfWD1loAVowPnrOW"/>
+</div>
+</div>
+</header>
+<!-- Chat Container -->
+<div class="flex-1 overflow-y-auto px-8 py-6 space-y-8 pb-32">
+<!-- Welcome Info Section -->
+<div class="max-w-3xl mx-auto text-center mb-12">
+<div class="inline-flex items-center gap-2 bg-secondary-container/20 text-secondary px-4 py-1 rounded-full mb-4">
+<span class="material-symbols-outlined text-sm" data-icon="shield">shield</span>
+<span class="text-xs font-bold">Privacy First: AI processing stays on this device</span>
+</div>
+</div>
+<!-- AI Message -->
+<div class="flex gap-4 max-w-4xl">
+<div class="w-10 h-10 rounded-2xl primary-gradient neumorphic-raised flex-shrink-0 flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="smart_toy" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div class="bg-surface-container-lowest neumorphic-raised p-6 rounded-2xl rounded-tl-none border-t border-white/50">
+<p class="leading-relaxed text-on-surface">Hello! I've been reviewing your progress in the Calculus module. You've mastered the concept of tangent lines, which is a great foundation. <br/><br/>Would you like to explore how we define the <strong>formal limit</strong> of a function today, or should we practice some derivative shortcuts first?</p>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex gap-4 max-w-4xl ml-auto flex-row-reverse">
+<div class="w-10 h-10 rounded-2xl bg-surface-container-highest neumorphic-raised flex-shrink-0 flex items-center justify-center text-on-surface-variant overflow-hidden">
+<img alt="User profile" data-alt="Close up portrait of a young professional smiling softly with neutral background and cinematic soft lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHW_tJNLtI3lDHG3HDmUEawg24xcDMvjouxpXmhUBlhEnf-gBnHMZ6nHJw9IKCJtAoKKcQht4dvC9cONhU3er2IUfD8Qmy4SyqQ9IQ1b-QQd1V9BU0qfSc-nCCU5EJTZIFPoWRDTSd7N196Pg-c9lyiOgatibNqTTKuKX9WoN2cX1iEg1EfaVa__nb0_eR8URvwuxGOrxvmjpJzOhUh4Oa6clMv74CyjkRXd_bU8y3c_gWwrjX2spX54xu3YADzZLuKLLH1qXMAiKp"/>
+</div>
+<div class="bg-primary-container text-on-primary-container p-6 rounded-2xl rounded-tr-none neumorphic-raised">
+<p class="leading-relaxed">Can you explain the formal definition of a limit? I'm having trouble with the epsilon-delta notation. It feels very abstract.</p>
+</div>
+</div>
+<!-- AI Message with Code/Visual -->
+<div class="flex gap-4 max-w-4xl">
+<div class="w-10 h-10 rounded-2xl primary-gradient neumorphic-raised flex-shrink-0 flex items-center justify-center text-white">
+<span class="material-symbols-outlined" data-icon="smart_toy" style="font-variation-settings: 'FILL' 1;">smart_toy</span>
+</div>
+<div class="bg-surface-container-lowest neumorphic-raised p-6 rounded-2xl rounded-tl-none border-t border-white/50 w-full">
+<p class="mb-4 font-bold text-primary font-headline">Understanding Epsilon (ε) and Delta (δ)</p>
+<p class="mb-6 leading-relaxed">Think of it as a challenge-response game. Epsilon (ε) is how close you want the output to be to the limit, and Delta (δ) is how close the input needs to be to guarantee that. </p>
+<div class="bg-surface-container neumorphic-inset rounded-xl p-4 mb-4 font-mono text-sm border-l-4 border-primary">
+<span class="text-secondary italic">// The formal definition</span><br/>
+                        ∀ε &gt; 0, ∃δ &gt; 0 such that<br/>
+                        0 &lt; |x - c| &lt; δ ⇒ |f(x) - L| &lt; ε
+                    </div>
+<p class="leading-relaxed">I've prepared a small interactive visualization. Imagine a target (L) and a range (ε). No matter how small you make that target, I can always find a range around (c) that hits it.</p>
+</div>
+</div>
+</div>
+<!-- Input Area Shell -->
+<div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-surface via-surface/90 to-transparent">
+<div class="max-w-4xl mx-auto">
+<!-- Suggested Prompts -->
+<div class="flex gap-3 mb-6 overflow-x-auto pb-2 scrollbar-hide">
+<button class="whitespace-nowrap px-4 py-2 rounded-full neumorphic-raised bg-surface-container-lowest text-sm font-medium text-secondary flex items-center gap-2 hover:translate-y-[-2px] transition-all active:scale-95">
+<span class="material-symbols-outlined text-base" data-icon="lightbulb">lightbulb</span>
+                        Explain Concept
+                    </button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full neumorphic-raised bg-surface-container-lowest text-sm font-medium text-secondary flex items-center gap-2 hover:translate-y-[-2px] transition-all active:scale-95">
+<span class="material-symbols-outlined text-base" data-icon="terminal">terminal</span>
+                        Debug Code
+                    </button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full neumorphic-raised bg-surface-container-lowest text-sm font-medium text-secondary flex items-center gap-2 hover:translate-y-[-2px] transition-all active:scale-95">
+<span class="material-symbols-outlined text-base" data-icon="psychology">psychology</span>
+                        Give Hint
+                    </button>
+<button class="whitespace-nowrap px-4 py-2 rounded-full neumorphic-raised bg-surface-container-lowest text-sm font-medium text-on-surface-variant flex items-center gap-2 hover:translate-y-[-2px] transition-all active:scale-95">
+<span class="material-symbols-outlined text-base" data-icon="summarize">summarize</span>
+                        Summarize Chat
+                    </button>
+</div>
+<!-- Main Input Box -->
+<div class="relative flex items-center gap-4">
+<div class="flex-1 neumorphic-inset bg-surface-container-low rounded-2xl h-14 flex items-center px-6">
+<input class="bg-transparent border-none focus:ring-0 w-full text-on-surface placeholder:text-outline h-full" placeholder="Ask ElimuBot anything about Calculus..." type="text"/>
+<div class="flex items-center gap-3">
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="attach_file">attach_file</span>
+</button>
+<button class="text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="mic">mic</span>
+</button>
+</div>
+</div>
+<button class="h-14 w-14 rounded-2xl primary-gradient text-white flex items-center justify-center neumorphic-raised hover:scale-105 active:scale-95 transition-all shadow-lg">
+<span class="material-symbols-outlined" data-icon="send" style="font-variation-settings: 'FILL' 1;">send</span>
+</button>
+</div>
+<div class="mt-4 text-center">
+<p class="text-[10px] text-outline font-medium tracking-wide uppercase">AI may hallucinate. Verify critical educational concepts.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Visual Enhancements: Background Gradients -->
+<div class="fixed top-0 left-0 w-full h-full pointer-events-none z-[-1] opacity-40">
+<div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary-container blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-5%] left-[20%] w-[30%] h-[30%] bg-primary-fixed blur-[100px] rounded-full"></div>
+</div>
+</body></html>

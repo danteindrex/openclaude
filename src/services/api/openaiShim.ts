@@ -76,6 +76,55 @@ const COPILOT_HEADERS: Record<string, string> = {
   'Copilot-Integration-Id': 'vscode-chat',
 }
 
+function parsePositiveIntegerEnv(
+  value: string | undefined,
+): number | undefined {
+  if (!value) return undefined
+  const parsed = Number.parseInt(value, 10)
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : undefined
+}
+
+function isOllamaBaseUrl(baseUrl: string | undefined): boolean {
+  if (!baseUrl) return false
+  if (process.env.OLLAMA_BASE_URL) return true
+
+  try {
+    const parsed = new URL(baseUrl)
+    return parsed.port === '11434' || parsed.hostname.toLowerCase().includes('ollama')
+  } catch {
+    return false
+  }
+}
+
+function buildOllamaBodyOverrides(options?: {
+  baseUrl?: string
+  maxCompletionTokens?: number
+}): Record<string, unknown> {
+  if (!isOllamaBaseUrl(options?.baseUrl)) {
+    return {}
+  }
+
+  const defaultNumPredict = 64
+  const numPredictEnv = parsePositiveIntegerEnv(process.env.OLLAMA_NUM_PREDICT)
+  const numCtx = parsePositiveIntegerEnv(process.env.OLLAMA_NUM_CTX) ?? 1024
+  const requestedMaxTokens = options?.maxCompletionTokens
+  const numPredict =
+    requestedMaxTokens && requestedMaxTokens > 0
+      ? Math.min(numPredictEnv ?? defaultNumPredict, requestedMaxTokens)
+      : (numPredictEnv ?? defaultNumPredict)
+
+  const keepAlive = process.env.OLLAMA_KEEP_ALIVE?.trim() || '30m'
+
+  return {
+    keep_alive: keepAlive,
+    max_tokens: numPredict,
+    options: {
+      num_ctx: numCtx,
+      num_predict: numPredict,
+    },
+  }
+}
+
 function isGithubModelsMode(): boolean {
   return isEnvTruthy(process.env.CLAUDE_CODE_USE_GITHUB)
 }
@@ -1174,6 +1223,17 @@ class OpenAIShimMessages {
     } else if (maxCompletionTokensValue !== undefined) {
       body.max_completion_tokens = maxCompletionTokensValue
     }
+
+    Object.assign(
+      body,
+      buildOllamaBodyOverrides({
+        baseUrl: request.baseUrl,
+        maxCompletionTokens:
+          typeof body.max_completion_tokens === 'number'
+            ? body.max_completion_tokens as number
+            : undefined,
+      }),
+    )
 
     if (params.stream && !isLocalProviderUrl(request.baseUrl)) {
       body.stream_options = { include_usage: true }

@@ -1,0 +1,5 @@
+$ bun run scripts/start-grpc.ts
+error: EPERM reading "C:\Users\user\Documents\elimo ai\openclaude\node_modules\fast-deep-equal\index.js"
+
+Bun v1.3.11 (Windows x64)
+error: script "dev:grpc" exited with code 1

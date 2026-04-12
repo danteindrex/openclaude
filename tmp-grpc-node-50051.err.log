@@ -1,0 +1,18 @@
+
+node:internal/modules/run_main:123
+    triggerUncaughtException(
+    ^
+Error [ERR_UNSUPPORTED_ESM_URL_SCHEME]: Only URLs with a scheme in: file, data, and node are supported by the default ESM loader. Received protocol 'bun:'
+    at throwIfUnsupportedURLScheme (node:internal/modules/esm/load:187:11)
+    at defaultLoad (node:internal/modules/esm/load:82:3)
+    at nextLoad (node:internal/modules/esm/hooks:748:28)
+    at load (file:///C:/Users/user/Documents/elimo%20ai/openclaude/node_modules/tsx/dist/esm/index.mjs?1775987872205:2:1777)
+    at nextLoad (node:internal/modules/esm/hooks:748:28)
+    at Hooks.load (node:internal/modules/esm/hooks:385:26)
+    at handleMessage (node:internal/modules/esm/worker:199:24)
+    at Immediate.checkForMessages (node:internal/modules/esm/worker:141:28)
+    at process.processImmediate (node:internal/timers:485:21) {
+  code: 'ERR_UNSUPPORTED_ESM_URL_SCHEME'
+}
+
+Node.js v22.20.0

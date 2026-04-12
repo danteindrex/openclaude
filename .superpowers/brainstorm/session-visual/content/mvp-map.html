@@ -1,0 +1,116 @@
+<h2>ElimuCore MVP Scope Map</h2>
+<p class="subtitle">Based on the stitched UI folder. This view separates live functionality from demo-only surfaces for the first Next.js build.</p>
+
+<div class="section">
+  <div class="cards">
+    <div class="card" data-choice="welcome" onclick="toggleSelect(this)">
+      <div class="card-body">
+        <div class="label">Entry</div>
+        <h3>Welcome to ElimuCore</h3>
+        <p>Marketing-style landing / first-run entry screen.</p>
+      </div>
+    </div>
+    <div class="card" data-choice="role" onclick="toggleSelect(this)">
+      <div class="card-body">
+        <div class="label">Entry</div>
+        <h3>Select Your Role</h3>
+        <p>Role selection shell for student / teacher / admin journeys.</p>
+      </div>
+    </div>
+    <div class="card" data-choice="login" onclick="toggleSelect(this)">
+      <div class="card-body">
+        <div class="label">Entry</div>
+        <h3>Local Login</h3>
+        <p>Demo auth screen and gateway into the app shell.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="split">
+    <div class="mockup">
+      <div class="mockup-header">Demo-First Shell</div>
+      <div class="mockup-body">
+        <div class="mock-nav">Welcome • Role Select • Login</div>
+        <div style="display:flex; gap:16px; margin-top:16px;">
+          <div class="mock-sidebar" style="width:32%;">Student Dashboard<br><br>Course Catalog<br><br>Settings</div>
+          <div class="mock-content" style="width:68%;">
+            <strong>Dashboard + Catalog use demo lesson data</strong><br><br>
+            Progress, cards, lessons, and study content are mocked for presentation fidelity.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mockup">
+      <div class="mockup-header">Live Functional Core</div>
+      <div class="mockup-body">
+        <div class="mock-nav">ElimuBot • Ollama Status • Session History</div>
+        <div style="display:flex; gap:16px; margin-top:16px;">
+          <div class="mock-sidebar" style="width:32%;">Chats<br><br>Models<br><br>Capabilities</div>
+          <div class="mock-content" style="width:68%;">
+            <strong>AI Tutor is fully functional</strong><br><br>
+            Real streaming chat, real Ollama connection, and a UI version of terminal agent capabilities.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>Terminal Capability Migration</h3>
+  <div class="options" data-multiselect>
+    <div class="option" data-choice="chat" onclick="toggleSelect(this)">
+      <div class="letter">A</div>
+      <div class="content">
+        <h3>Chat + Streaming</h3>
+        <p>Required. Real messages, session state, and Ollama-backed replies.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="files" onclick="toggleSelect(this)">
+      <div class="letter">B</div>
+      <div class="content">
+        <h3>File / Tool Panels</h3>
+        <p>UI panels for reads, edits, commands, and results from the backend.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="tasks" onclick="toggleSelect(this)">
+      <div class="letter">C</div>
+      <div class="content">
+        <h3>Tasks / Background Work</h3>
+        <p>Visible task list and tool activity timeline.</p>
+      </div>
+    </div>
+    <div class="option" data-choice="mcp" onclick="toggleSelect(this)">
+      <div class="letter">D</div>
+      <div class="content">
+        <h3>MCP / Plugins</h3>
+        <p>Exposed in the UI now, or deferred behind demo states.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="pros-cons">
+    <div class="pros">
+      <h4>Recommended MVP</h4>
+      <ul>
+        <li>Pixel-faithful Next.js shell from stitched UI</li>
+        <li>Real Ollama tutor chat as the product centerpiece</li>
+        <li>Dashboard / catalog / lessons rendered with demo data</li>
+        <li>Terminal capabilities surfaced as inspectable UI panels</li>
+      </ul>
+    </div>
+    <div class="cons">
+      <h4>Not Recommended For MVP</h4>
+      <ul>
+        <li>Rebuilding every CLI command as a polished web workflow at once</li>
+        <li>Full auth, multi-role backend, and production data model together</li>
+        <li>Perfect parity with all CLI-only internals in one pass</li>
+      </ul>
+    </div>
+  </div>
+</div>

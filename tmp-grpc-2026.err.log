@@ -1,0 +1,123 @@
+=localhost : The term '=localhost' is not recognized as the name of a cmdlet, function, script file, or operable 
+program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:1
++ ='localhost'; ='2026'; ='1'; ='http://localhost:11434/v1'; ='qwen3.5: ...
++ ~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (=localhost:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=2026 : The term '=2026' is not recognized as the name of a cmdlet, function, script file, or operable program. Check 
+the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:15
++ ='localhost'; ='2026'; ='1'; ='http://localhost:11434/v1'; ='qwen3.5: ...
++               ~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (=2026:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=1 : The term '=1' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the 
+spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:24
++ ='localhost'; ='2026'; ='1'; ='http://localhost:11434/v1'; ='qwen3.5: ...
++                        ~~~~
+    + CategoryInfo          : ObjectNotFound: (=1:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=http://localhost:11434/v1 : The term '=http://localhost:11434/v1' is not recognized as the name of a cmdlet, 
+function, script file, or operable program. Check the spelling of the name, or if a path was included, verify that the 
+path is correct and try again.
+At line:1 char:30
++ ='localhost'; ='2026'; ='1'; ='http://localhost:11434/v1'; ='qwen3.5: ...
++                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (=http://localhost:11434/v1:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=qwen3.5:0.8b : The term '=qwen3.5:0.8b' is not recognized as the name of a cmdlet, function, script file, or operable 
+program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:60
++ ...  ='2026'; ='1'; ='http://localhost:11434/v1'; ='qwen3.5:0.8b'; ='1024 ...
++                                                   ~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (=qwen3.5:0.8b:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=1024 : The term '=1024' is not recognized as the name of a cmdlet, function, script file, or operable program. Check 
+the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:77
++ ...  ='1'; ='http://localhost:11434/v1'; ='qwen3.5:0.8b'; ='1024'; ='64'; ...
++                                                           ~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (=1024:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=64 : The term '=64' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the 
+spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:86
++ ... ='http://localhost:11434/v1'; ='qwen3.5:0.8b'; ='1024'; ='64'; ='30m' ...
++                                                             ~~~~~
+    + CategoryInfo          : ObjectNotFound: (=64:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=30m : The term '=30m' is not recognized as the name of a cmdlet, function, script file, or operable program. Check 
+the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:93
++ ... /localhost:11434/v1'; ='qwen3.5:0.8b'; ='1024'; ='64'; ='30m'; ='1';  ...
++                                                            ~~~~~~
+    + CategoryInfo          : ObjectNotFound: (=30m:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=1 : The term '=1' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the 
+spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:101
++ ... host:11434/v1'; ='qwen3.5:0.8b'; ='1024'; ='64'; ='30m'; ='1'; ='1';  ...
++                                                              ~~~~
+    + CategoryInfo          : ObjectNotFound: (=1:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=1 : The term '=1' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the 
+spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:107
++ ... 1434/v1'; ='qwen3.5:0.8b'; ='1024'; ='64'; ='30m'; ='1'; ='1'; ='1';  ...
++                                                              ~~~~
+    + CategoryInfo          : ObjectNotFound: (=1:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=1 : The term '=1' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the 
+spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:113
++ ... 1'; ='qwen3.5:0.8b'; ='1024'; ='64'; ='30m'; ='1'; ='1'; ='1'; ='1';  ...
++                                                              ~~~~
+    + CategoryInfo          : ObjectNotFound: (=1:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=1 : The term '=1' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the 
+spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:119
++ ... qwen3.5:0.8b'; ='1024'; ='64'; ='30m'; ='1'; ='1'; ='1'; ='1'; ='1';  ...
++                                                              ~~~~
+    + CategoryInfo          : ObjectNotFound: (=1:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=1 : The term '=1' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the 
+spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:125
++ ... 5:0.8b'; ='1024'; ='64'; ='30m'; ='1'; ='1'; ='1'; ='1'; ='1'; ='1';  ...
++                                                              ~~~~
+    + CategoryInfo          : ObjectNotFound: (=1:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=1 : The term '=1' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the 
+spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:131
++ ... '; ='1024'; ='64'; ='30m'; ='1'; ='1'; ='1'; ='1'; ='1'; ='1'; ='1';  ...
++                                                              ~~~~
+    + CategoryInfo          : ObjectNotFound: (=1:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+=1 : The term '=1' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the 
+spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:137
++ ... 024'; ='64'; ='30m'; ='1'; ='1'; ='1'; ='1'; ='1'; ='1'; ='1'; & 'C:\ ...
++                                                              ~~~~
+    + CategoryInfo          : ObjectNotFound: (=1:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+ 
+$ bun run scripts/start-grpc.ts
+error: script "dev:grpc" exited with code 255

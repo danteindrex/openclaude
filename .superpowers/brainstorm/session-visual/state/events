@@ -1,0 +1,11 @@
+{"type":"click","text":"Entry\n        Welcome to ElimuCore\n        Marketing-style landing / first-run entry screen.","choice":"welcome","id":null,"timestamp":1775851565221}
+{"type":"click","text":"Entry\n        Welcome to ElimuCore\n        Marketing-style landing / first-run entry screen.","choice":"welcome","id":null,"timestamp":1775851566589}
+{"type":"click","text":"Entry\n        Select Your Role\n        Role selection shell for student / teacher / admin journeys.","choice":"role","id":null,"timestamp":1775851567975}
+{"type":"click","text":"Entry\n        Local Login\n        Demo auth screen and gateway into the app shell.","choice":"login","id":null,"timestamp":1775851569690}
+{"type":"click","text":"Entry\n        Select Your Role\n        Role selection shell for student / teacher / admin journeys.","choice":"role","id":null,"timestamp":1775851570785}
+{"type":"click","text":"Entry\n        Welcome to ElimuCore\n        Marketing-style landing / first-run entry screen.","choice":"welcome","id":null,"timestamp":1775851572352}
+{"type":"click","text":"D\n      \n        MCP / Plugins\n        Exposed in the UI now, or deferred behind demo states.","choice":"mcp","id":null,"timestamp":1775851576123}
+{"type":"click","text":"C\n      \n        Tasks / Background Work\n        Visible task list and tool activity timeline.","choice":"tasks","id":null,"timestamp":1775851577523}
+{"type":"click","text":"B\n      \n        File / Tool Panels\n        UI panels for reads, edits, commands, and results from the backend.","choice":"files","id":null,"timestamp":1775851578904}
+{"type":"click","text":"A\n      \n        Chat + Streaming\n        Required. Real messages, session state, and Ollama-backed replies.","choice":"chat","id":null,"timestamp":1775851580313}
+{"type":"click","text":"Entry\n        Select Your Role\n        Role selection shell for student / teacher / admin journeys.","choice":"role","id":null,"timestamp":1775851586986}

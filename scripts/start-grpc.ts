@@ -37,6 +37,9 @@ async function main() {
   }
   await validateProviderEnvOrExit()
 
+  process.env.CLAUDE_CODE_MAX_OUTPUT_TOKENS = process.env.CLAUDE_CODE_MAX_OUTPUT_TOKENS || '8192'
+  process.env.OLLAMA_NUM_PREDICT = process.env.OLLAMA_NUM_PREDICT || '8192'
+
   const port = process.env.GRPC_PORT ? parseInt(process.env.GRPC_PORT, 10) : 50051
   const host = process.env.GRPC_HOST || 'localhost'
   const server = new GrpcServer()

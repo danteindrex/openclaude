@@ -1,0 +1,8 @@
+$ bun run scripts/start-grpc.ts
+DeprecationWarning: Calling start() is no longer necessary. It can be safely omitted.
+      at <anonymous> (internal:util/deprecate:11:28)
+      at deprecated (internal:util/deprecate:20:29)
+      at <anonymous> (C:\Users\user\Documents\elimo ai\openclaude\src\grpc\server.ts:47:21)
+      at <anonymous> (C:\Users\user\Documents\elimo ai\openclaude\node_modules\@grpc\grpc-js\build\src\server.js:614:25)
+
+error: script "dev:grpc" exited with code 255

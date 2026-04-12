@@ -156,6 +156,7 @@ export type QueryEngineConfig = {
   setSDKStatus?: (status: SDKStatus) => void
   abortController?: AbortController
   orphanedPermission?: OrphanedPermission
+  skipSkillsAndPluginsBootstrap?: boolean
   /**
    * Snip-boundary handler: receives each yielded system message plus the
    * current mutableMessages store. Returns undefined if the message is not a
@@ -234,6 +235,7 @@ export class QueryEngine {
       agents = [],
       setSDKStatus,
       orphanedPermission,
+      skipSkillsAndPluginsBootstrap = false,
     } = this.config
 
     this.discoveredSkillNames.clear()
@@ -528,14 +530,15 @@ export class QueryEngine {
     }
 
     headlessProfilerCheckpoint('before_skills_plugins')
-    // Cache-only: headless/SDK/CCR startup must not block on network for
-    // ref-tracked plugins. CCR populates the cache via CLAUDE_CODE_SYNC_PLUGIN_INSTALL
-    // (headlessPluginInstall) or CLAUDE_CODE_PLUGIN_SEED_DIR before this runs;
-    // SDK callers that need fresh source can call /reload-plugins.
-    const [skills, { enabled: enabledPlugins }] = await Promise.all([
-      getSlashCommandToolSkills(getCwd()),
-      loadAllPluginsCacheOnly(),
-    ])
+    // The web tutor gRPC path needs the first stream event quickly. Skill and
+    // plugin discovery can take significant time on Windows and provides no
+    // value to the browser MVP, so allow this bootstrap step to be skipped.
+    const [skills, enabledPlugins] = skipSkillsAndPluginsBootstrap
+      ? [[], []]
+      : await Promise.all([
+          getSlashCommandToolSkills(getCwd()),
+          loadAllPluginsCacheOnly().then(result => result.enabled),
+        ])
     headlessProfilerCheckpoint('after_skills_plugins')
 
     yield buildSystemInitMessage({
