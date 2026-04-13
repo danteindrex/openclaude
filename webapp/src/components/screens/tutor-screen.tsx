@@ -211,9 +211,13 @@ export function TutorScreen() {
         setMessages((current) => {
           const last = current[current.length - 1];
           if (last?.role === "assistant") {
+            const finalText =
+              payload.fullText && payload.fullText.length >= last.text.length
+                ? payload.fullText
+                : last.text;
             return [
               ...current.slice(0, -1),
-              { ...last, text: payload.fullText || last.text, status: "done" },
+              { ...last, text: finalText, status: "done" },
             ];
           }
           return [

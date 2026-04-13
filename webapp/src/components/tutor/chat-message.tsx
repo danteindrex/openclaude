@@ -3,7 +3,11 @@ import AILoadingState from "./ai-loading-state";
 
 export function ChatMessage({ message }: { message: TutorMessage }) {
   if (message.role === "assistant" && message.status === "streaming" && !message.text) {
-    return <AILoadingState />;
+    return (
+      <article className="max-w-3xl rounded-[1.75rem] rounded-bl-md bg-surface-container-lowest px-5 py-4 text-on-surface shadow-neumorphic-raised">
+        <AILoadingState />
+      </article>
+    );
   }
 
   const isUser = message.role === "user";

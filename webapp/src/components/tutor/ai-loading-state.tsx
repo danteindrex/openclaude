@@ -14,32 +14,32 @@ import { useEffect, useState, useRef } from "react";
 
 const TASK_SEQUENCES = [
     {
-        status: "Analyzing context",
+        status: "Inspecting workspace",
         lines: [
-            "Initializing OpenClaude core...",
-            "Loading session state...",
-            "Validating active directory...",
-            "Mapping file systems...",
-            "Preparing generation engine...",
+            "Booting the OpenClaude tutor bridge...",
+            "Loading the active ElimuCore session...",
+            "Checking the selected project folder...",
+            "Indexing files for read and edit tools...",
+            "Preparing a low-latency Ollama request...",
         ],
     },
     {
-        status: "Querying model",
+        status: "Contacting Ollama",
         lines: [
-            "Connecting to local Ollama instance...",
-            "Bypassing context limitations...",
-            "Computing prompt definitions...",
-            "Checking inference capacity...",
-            "Awaiting neural response...",
+            "Connecting to the local model runtime...",
+            "Packing the current chat and tool context...",
+            "Keeping the model warm for faster replies...",
+            "Waiting for the first streamed text delta...",
+            "Monitoring inference and token flow...",
         ],
     },
     {
-        status: "Generating output",
+        status: "Composing answer",
         lines: [
-            "Receiving initial stream deltas...",
-            "Formatting markdown blocks...",
-            "Validating code snippets...",
-            "Finalizing semantic delivery...",
+            "Streaming the tutor response into chat...",
+            "Formatting code, commands, and explanations...",
+            "Tracking tool activity for the side panel...",
+            "Finalizing the assistant message...",
         ],
     },
 ];
@@ -224,9 +224,9 @@ export default function AILoadingState() {
     }, [scrollPosition]);
 
     return (
-        <div className="flex items-center justify-center min-h-[160px] w-full">
-            <div className="space-y-4 w-auto">
-                <div className="ml-2 flex items-center space-x-2 text-gray-600 dark:text-gray-300 font-medium">
+        <div className="w-full py-2">
+            <div className="space-y-4 w-full">
+                <div className="ml-2 flex items-center space-x-3 font-medium text-on-surface">
                     <LoadingAnimation
                         progress={(sequenceIndex / TASK_SEQUENCES.length) * 100}
                     />
@@ -236,7 +236,7 @@ export default function AILoadingState() {
                 <div className="relative">
                     <div
                         ref={codeContainerRef}
-                        className="font-mono text-xs overflow-hidden w-full h-[84px] relative rounded-lg"
+                        className="relative h-[112px] w-full overflow-hidden rounded-[1.25rem] bg-surface-container-low px-2 py-2 font-mono text-xs shadow-neumorphic-inset"
                         style={{ scrollBehavior: "smooth" }}
                     >
                         <div>
@@ -245,11 +245,11 @@ export default function AILoadingState() {
                                     key={`${line.number}-${line.text}`}
                                     className="flex h-[28px] items-center px-2"
                                 >
-                                    <div className="text-gray-400 dark:text-gray-500 pr-3 select-none w-6 text-right">
+                                    <div className="w-6 select-none pr-3 text-right text-outline">
                                         {line.number}
                                     </div>
 
-                                    <div className="text-gray-800 dark:text-gray-200 flex-1 ml-1">
+                                    <div className="ml-1 flex-1 text-on-surface">
                                         {line.text}
                                     </div>
                                 </div>
@@ -258,10 +258,10 @@ export default function AILoadingState() {
                     </div>
 
                     <div
-                        className="absolute top-0 left-0 right-0 bottom-0 pointer-events-none rounded-lg from-white/90 via-white/50 to-transparent dark:from-black/90 dark:via-black/50 dark:to-transparent"
+                        className="pointer-events-none absolute bottom-0 left-0 right-0 top-0 rounded-[1.25rem]"
                         style={{
                             background:
-                                "linear-gradient(to bottom, var(--tw-gradient-from) 0%, var(--tw-gradient-via) 30%, var(--tw-gradient-to) 100%)",
+                                "linear-gradient(to bottom, rgba(248,245,238,0.82) 0%, rgba(248,245,238,0.2) 28%, rgba(248,245,238,0) 100%)",
                         }}
                     />
                 </div>
