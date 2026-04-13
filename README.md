@@ -281,15 +281,143 @@ Recommended contributor validation before opening a PR:
 - focused `bun test ...` runs for the files and flows you changed
 
 Coverage output is written to `coverage/lcov.info`, and OpenClaude also generates a git-activity-style heatmap at `coverage/index.html`.
+---
+
+## ElimuBot AI Tutor Web App
+
+OpenClaude includes a local AI tutor web app (ElimuBot) powered by a Python FastAPI backend running HuggingFace Transformers models entirely on your machine — no cloud API keys required.
+
+### Prerequisites
+
+- **Python 3.12** (recommended, not 3.14 — pre-built wheels are required)
+  ```powershell
+  py --list          # check available versions
+  py -3.12 --version # confirm 3.12 is available
+  ```
+- **Bun** for the Next.js webapp
+- **8 GB+ RAM** for Qwen3.5-0.8B (recommended starter model)
+- **16 GB+ RAM** for Phi-3-mini-4k-instruct
+
+---
+
+### Step 1 — Create the Python Virtual Environment
+
+From the root of the repo:
+
+```powershell
+# Remove any old venv first (if it exists)
+Remove-Item -Recurse -Force venv -ErrorAction SilentlyContinue
+
+# Create a new venv using Python 3.12
+py -3.12 -m venv venv
+
+# Activate it
+.\venv\Scripts\Activate.ps1
+```
+
+---
+
+### Step 2 — Install Python Dependencies
+
+```powershell
+cd python
+pip install -r requirements.txt
+```
+
+> **Note:** If `pip install` fails on `chroma-hnswlib`, ensure you are using Python 3.12. Python 3.13/3.14 does not have pre-built wheels for some packages.
+
+---
+
+### Step 3 — Download a Model
+
+Models are stored in the `models/` directory (gitignored). Download one or both:
+
+#### Option A — Qwen3.5-0.8B *(recommended — fast, ~1.8 GB)*
+
+```powershell
+# From the repo root, with venv activated
+python python/download_model.py --model "Qwen/Qwen3.5-0.8B" --dest "models/qwen3.5-0.8b"
+```
+
+#### Option B — Phi-3-mini-4k-instruct *(more capable, ~7.6 GB, slow on CPU)*
+
+```powershell
+python python/download_model.py --model "microsoft/Phi-3-mini-4k-instruct" --dest "models/phi3-mini"
+```
+
+You can download both. The web app lets you switch between loaded models at runtime.
+
+---
+
+### Step 4 — Start the Python AI Backend
+
+```powershell
+# Activate venv if not already active
+.\venv\Scripts\Activate.ps1
+
+cd python
+python vllm_server.py
+```
+
+The server starts on **http://localhost:8000**. On first startup it automatically loads the first model found in `models/`. Startup time:
+- Qwen3.5-0.8B on CPU: ~30 seconds
+- Phi-3-mini on CPU: ~3–5 minutes
+
+Verify it is running:
+```powershell
+curl http://localhost:8000/health
+# Expected: {"status":"ok","model_loaded":true,...}
+```
+
+---
+
+### Step 5 — Start the Web App
+
+In a **separate terminal** from the repo root:
+
+```powershell
+bun run webapp:dev
+```
+
+Open **http://localhost:3000/tutor** in your browser.
+
+---
+
+### Using the Tutor UI
+
+- **Python AI pill** — green when `vllm_server.py` is running
+- **Model dropdown** — shows all models in `models/`, select to hot-swap (takes ~30s)
+- **Chat** — ask ElimuBot anything; it uses the locally loaded model with no internet calls
+
+### Switching Models at Runtime
+
+Select a different model from the dropdown in the sidebar. The server will unload the current model and load the new one. The UI polls every 10 seconds and will update automatically.
+
+### Environment Variables
+
+| Variable | Default | Description |
+|---|---|---|
+| `VLLM_BASE_URL` | `http://localhost:8000` | Python backend URL (set in `.env.local` in `webapp/`) |
+
+---
+
 ## Repository Structure
 
 - `src/` - core CLI/runtime
 - `scripts/` - build, verification, and maintenance scripts
 - `docs/` - setup, contributor, and project documentation
-- `python/` - standalone Python helpers and their tests
+- `python/` - Python AI backend (FastAPI + HuggingFace Transformers)
+  - `vllm_server.py` - main FastAPI server (runs on :8000)
+  - `smart_router.py` - multi-provider routing logic
+  - `rag_service.py` - ChromaDB RAG integration
+  - `download_model.py` - model downloader utility
+  - `requirements.txt` - Python dependencies
+- `models/` - downloaded model weights *(gitignored, not committed)*
+- `webapp/` - Next.js AI tutor web app (ElimuBot)
 - `vscode-extension/openclaude-vscode/` - VS Code extension
 - `.github/` - repo automation, templates, and CI configuration
 - `bin/` - CLI launcher entrypoints
+
 
 ## VS Code Extension
 
