@@ -1,0 +1,22 @@
+Starting OpenClaude gRPC Server...
+gRPC Server running at localhost:50051
+[grpc] Chat stream opened
+[grpc] received client message {"hasRequest":true,"hasInput":false,"hasCancel":false,"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","workingDirectory":"C:\\Users\\user\\Documents\\elimo ai\\openclaude\\webapp","model":"qwen3.5:0.8b"}
+[grpc] submitMessage start {"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","messageLength":36,"cwd":"C:\\Users\\user\\Documents\\elimo ai\\openclaude\\webapp","model":"qwen3.5:0.8b"}
+[grpc] generator event {"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","eventCount":1,"type":"system","subtype":"init","elapsedMs":125}
+[grpc] generator event {"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","eventCount":2,"type":"stream_event","subtype":null,"elapsedMs":49816}
+[grpc] generator event {"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","eventCount":3,"type":"stream_event","subtype":null,"elapsedMs":52647}
+[grpc] generator event {"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","eventCount":4,"type":"stream_event","subtype":null,"elapsedMs":52650}
+[grpc] generator event {"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","eventCount":5,"type":"stream_event","subtype":null,"elapsedMs":52742}
+[grpc] sent done response {"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","fullText":"API Error: Claude's response exceeded the 4096 output token maximum. To configure this behavior, set the CLAUDE_CODE_MAX_OUTPUT_TOKENS environment variable.","promptTokens":0,"completionTokens":0,"elapsedMs":127952}
+[grpc] stream end
+[grpc] Chat stream opened
+[grpc] received client message {"hasRequest":true,"hasInput":false,"hasCancel":false,"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","workingDirectory":"C:\\Users\\user\\Documents\\elimo ai\\openclaude\\webapp","model":"qwen3.5:0.8b"}
+[grpc] submitMessage start {"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","messageLength":21,"cwd":"C:\\Users\\user\\Documents\\elimo ai\\openclaude\\webapp","model":"qwen3.5:0.8b"}
+[grpc] generator event {"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","eventCount":1,"type":"system","subtype":"init","elapsedMs":4}
+[grpc] generator event {"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","eventCount":2,"type":"stream_event","subtype":null,"elapsedMs":43712}
+[grpc] generator event {"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","eventCount":3,"type":"stream_event","subtype":null,"elapsedMs":46213}
+[grpc] generator event {"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","eventCount":4,"type":"stream_event","subtype":null,"elapsedMs":46213}
+[grpc] generator event {"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","eventCount":5,"type":"stream_event","subtype":null,"elapsedMs":46291}
+[grpc] sent done response {"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","fullText":"API Error: Claude's response exceeded the 4096 output token maximum. To configure this behavior, set the CLAUDE_CODE_MAX_OUTPUT_TOKENS environment variable.","promptTokens":0,"completionTokens":0,"elapsedMs":99977}
+[grpc] stream end
