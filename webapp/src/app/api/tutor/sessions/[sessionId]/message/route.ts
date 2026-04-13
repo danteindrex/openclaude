@@ -1,10 +1,9 @@
-import { spawn } from "node:child_process";
-import path from "node:path";
-import { mapServerMessage } from "@/lib/server/tutor-event-map";
 import { getTutorSessionSnapshot } from "@/lib/server/tutor-session-store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
+const VLLM_BASE_URL = process.env.VLLM_BASE_URL ?? "http://localhost:8000";
 
 function formatEvent(data: unknown) {
   return `data: ${JSON.stringify(data)}\n\n`;
@@ -21,18 +20,7 @@ export async function POST(
   if (!message) {
     return new Response(JSON.stringify({ error: "Message is required" }), {
       status: 400,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  }
-
-  if (!getTutorSessionSnapshot(sessionId)) {
-    return new Response(JSON.stringify({ error: "Session not found" }), {
-      status: 404,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
@@ -40,150 +28,78 @@ export async function POST(
   if (!session) {
     return new Response(JSON.stringify({ error: "Session not found" }), {
       status: 404,
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
     });
   }
 
   const encoder = new TextEncoder();
 
+  // Build messages array from session history, excluding empty/streaming placeholders
+  const historyMessages = session.messages
+    .filter((m) => m.text && m.text.trim().length > 0)
+    .map((m) => ({ role: m.role as "user" | "assistant", content: m.text }));
+
+  const messages = [
+    { role: "system", content: "You are ElimuBot, a helpful AI tutor. Answer clearly and concisely." },
+    ...historyMessages,
+    { role: "user", content: message },
+  ];
+
   const stream = new ReadableStream<Uint8Array>({
-    start(controller) {
+    async start(controller) {
       let controllerClosed = false;
       const safeEnqueue = (data: unknown) => {
-        if (controllerClosed) {
-          return;
-        }
+        if (controllerClosed) return;
         controller.enqueue(encoder.encode(formatEvent(data)));
       };
-
       const safeClose = () => {
-        if (controllerClosed) {
-          return;
-        }
+        if (controllerClosed) return;
         controllerClosed = true;
         controller.close();
       };
 
       safeEnqueue({ type: "system", text: "stream-ready" });
 
-      const repoRoot = process.cwd().endsWith(`${path.sep}webapp`)
-        ? path.resolve(process.cwd(), "..")
-        : process.cwd();
-      const bunExecutable = process.env.BUN_EXECUTABLE || "bun";
-      const child = spawn(
-        bunExecutable,
-        ["run", "scripts/tutor-grpc-proxy.ts"],
-        {
-          cwd: repoRoot,
-          env: {
-            ...process.env,
-            TUTOR_GRPC_REQUEST_JSON: JSON.stringify({
-              message,
-              sessionId,
-              workingDirectory: session.activeFolder,
-              model: session.model,
-            }),
-          },
-          stdio: ["ignore", "pipe", "pipe"],
-          shell: process.platform === "win32",
-        },
-      );
+      try {
+        const vllmRes = await fetch(`${VLLM_BASE_URL}/generate`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            messages,
+            stream: true,
+            max_tokens: 512,
+            temperature: 0.7,
+          }),
+        });
 
-      let stdoutBuffer = "";
-      child.stdout.setEncoding("utf8");
-      child.stdout.on("data", (chunk: string) => {
-        stdoutBuffer += chunk;
-        const lines = stdoutBuffer.split(/\r?\n/);
-        stdoutBuffer = lines.pop() ?? "";
-
-        for (const line of lines) {
-          if (!line.trim()) {
-            continue;
-          }
-
-          try {
-            const payload = JSON.parse(line) as {
-              serverMessage?: unknown;
-              error?: string;
-            };
-
-            if (payload.serverMessage) {
-              const mapped = mapServerMessage(sessionId, payload.serverMessage);
-              if (mapped) {
-                safeEnqueue(mapped);
-              }
-              continue;
-            }
-
-            if (payload.error) {
-              safeEnqueue({
-                type: "error",
-                sessionId,
-                message: payload.error,
-              });
-            }
-          } catch (error) {
-            safeEnqueue({
-              type: "error",
-              sessionId,
-              message:
-                error instanceof Error
-                  ? error.message
-                  : "Failed to parse tutor bridge output",
-            });
-          }
-        }
-      });
-
-      child.stderr.setEncoding("utf8");
-      child.stderr.on("data", (chunk: string) => {
-        const messageText = chunk.trim();
-        if (!messageText) {
+        if (!vllmRes.ok || !vllmRes.body) {
+          const errText = await vllmRes.text().catch(() => "vLLM request failed");
+          safeEnqueue({ type: "error", message: errText });
+          safeClose();
           return;
         }
-        safeEnqueue({
-          type: "system",
-          sessionId,
-          text: messageText,
-        });
-      });
 
-      child.on("error", (error) => {
+        const reader = vllmRes.body.getReader();
+        const dec = new TextDecoder();
+        let fullText = "";
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          const chunk = dec.decode(value, { stream: true });
+          fullText += chunk;
+          safeEnqueue({ type: "text-delta", text: chunk });
+        }
+
+        safeEnqueue({ type: "done", fullText });
+      } catch (err) {
         safeEnqueue({
           type: "error",
-          sessionId,
-          message: error.message,
+          message: err instanceof Error ? err.message : "Failed to reach vLLM backend",
         });
+      } finally {
         safeClose();
-      });
-
-      child.on("close", () => {
-        if (stdoutBuffer.trim()) {
-          try {
-            const payload = JSON.parse(stdoutBuffer) as {
-              serverMessage?: unknown;
-              error?: string;
-            };
-            if (payload.serverMessage) {
-              const mapped = mapServerMessage(sessionId, payload.serverMessage);
-              if (mapped) {
-                safeEnqueue(mapped);
-              }
-            } else if (payload.error) {
-              safeEnqueue({
-                type: "error",
-                sessionId,
-                message: payload.error,
-              });
-            }
-          } catch {
-            // ignore trailing partial payloads on shutdown
-          }
-        }
-        safeClose();
-      });
+      }
     },
   });
 
@@ -195,3 +111,4 @@ export async function POST(
     },
   });
 }
+

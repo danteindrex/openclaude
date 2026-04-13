@@ -6,3 +6,63 @@
    * C:\Users\user\Documents\elimo ai\openclaude\webapp\bun.lock
    * C:\Users\user\Documents\elimo ai\openclaude\bun.lock
 
+TypeError: Invalid state: Controller is already closed
+    at h (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:24)
+    at ChildProcess.<anonymous> (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:1206) {
+  code: 'ERR_INVALID_STATE'
+}
+ ⨯ uncaughtException:  TypeError: Invalid state: Controller is already closed
+    at h (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:24)
+    at ChildProcess.<anonymous> (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:1206) {
+  code: 'ERR_INVALID_STATE'
+}
+TypeError: Invalid state: Controller is already closed
+    at h (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:24)
+    at ChildProcess.<anonymous> (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:1206) {
+  code: 'ERR_INVALID_STATE'
+}
+ ⨯ uncaughtException:  TypeError: Invalid state: Controller is already closed
+    at h (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:24)
+    at ChildProcess.<anonymous> (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:1206) {
+  code: 'ERR_INVALID_STATE'
+}
+TypeError: Invalid state: Controller is already closed
+    at h (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:24)
+    at ChildProcess.<anonymous> (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:1206) {
+  code: 'ERR_INVALID_STATE'
+}
+ ⨯ uncaughtException:  TypeError: Invalid state: Controller is already closed
+    at h (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:24)
+    at ChildProcess.<anonymous> (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:1206) {
+  code: 'ERR_INVALID_STATE'
+}
+TypeError: Invalid state: Controller is already closed
+    at h (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:24)
+    at ChildProcess.<anonymous> (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:1206) {
+  code: 'ERR_INVALID_STATE'
+}
+ ⨯ uncaughtException:  TypeError: Invalid state: Controller is already closed
+    at h (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:24)
+    at ChildProcess.<anonymous> (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:1206) {
+  code: 'ERR_INVALID_STATE'
+}
+TypeError: Invalid state: Controller is already closed
+    at h (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:24)
+    at ChildProcess.<anonymous> (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:1206) {
+  code: 'ERR_INVALID_STATE'
+}
+ ⨯ uncaughtException:  TypeError: Invalid state: Controller is already closed
+    at h (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:24)
+    at ChildProcess.<anonymous> (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:1206) {
+  code: 'ERR_INVALID_STATE'
+}
+TypeError: Invalid state: Controller is already closed
+    at h (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:24)
+    at ChildProcess.<anonymous> (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:1206) {
+  code: 'ERR_INVALID_STATE'
+}
+ ⨯ uncaughtException:  TypeError: Invalid state: Controller is already closed
+    at h (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:24)
+    at ChildProcess.<anonymous> (C:\Users\user\Documents\elimo ai\openclaude\webapp\.next\server\app\api\tutor\sessions\[sessionId]\message\route.js:3:1206) {
+  code: 'ERR_INVALID_STATE'
+}

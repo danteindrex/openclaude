@@ -1,42 +1,41 @@
-import { Socket } from "node:net";
-
-async function canReachGrpcSocket(host: string, port: number): Promise<boolean> {
-  return await new Promise((resolve) => {
-    const socket = new Socket();
-    let settled = false;
-
-    const finish = (value: boolean) => {
-      if (settled) return;
-      settled = true;
-      socket.destroy();
-      resolve(value);
-    };
-
-    socket.setTimeout(1500);
-    socket.once("connect", () => finish(true));
-    socket.once("timeout", () => finish(false));
-    socket.once("error", () => finish(false));
-    socket.connect(port, host);
-  });
-}
+const VLLM_BASE_URL = process.env.VLLM_BASE_URL ?? "http://localhost:8000";
 
 export async function getTutorRuntimeStatus() {
-  const ollamaBaseUrl = process.env.OPENAI_BASE_URL ?? "http://localhost:11434/v1";
-  const tagsUrl = ollamaBaseUrl.replace(/\/v1\/?$/, "") + "/api/tags";
-  const grpcHost = process.env.GRPC_HOST ?? "localhost";
-  const grpcPort = Number.parseInt(process.env.GRPC_PORT ?? "50051", 10);
+  type HealthResponse = {
+    status: string;
+    model_loaded: boolean;
+    current_model: string | null;
+    device: string;
+  };
+  type ModelsResponse = {
+    models: string[];
+    model_details: { id: string; label: string }[];
+    current_model: string | null;
+    current_model_label: string | null;
+  };
 
-  const [grpcSocketReady, ollamaReady] = await Promise.all([
-    canReachGrpcSocket(grpcHost, grpcPort),
-    fetch(tagsUrl, { signal: AbortSignal.timeout(1500) }).then((response) => response.ok).catch(() => false),
+  // Use /health for the liveness check — it's lightweight and always fast
+  const [health, models] = await Promise.all([
+    fetch(`${VLLM_BASE_URL}/health`, { signal: AbortSignal.timeout(5000) })
+      .then((r) => r.json() as Promise<HealthResponse>)
+      .catch(() => null),
+
+    fetch(`${VLLM_BASE_URL}/models`, { signal: AbortSignal.timeout(5000) })
+      .then((r) => r.json() as Promise<ModelsResponse>)
+      .catch(() => null),
   ]);
 
+  // vllmReady = server is up (health responded), regardless of whether a model is loaded yet
+  const vllmReady = health !== null && health.status === "ok";
+
   return {
-    grpcReady: grpcSocketReady,
-    grpcSocketReachable: grpcSocketReady,
-    ollamaReady,
-    model: process.env.OPENAI_MODEL ?? null,
-    grpcHost,
-    grpcPort: String(grpcPort),
+    grpcReady: vllmReady,
+    vllmReady,
+    modelLoaded: health?.model_loaded ?? false,
+    availableModels: models?.models ?? [],
+    modelDetails: models?.model_details ?? [],
+    model: models?.current_model_label ?? models?.current_model ?? null,
+    currentModelId: models?.current_model ?? null,
   };
 }
+

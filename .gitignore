@@ -14,3 +14,25 @@ webapp/.next/
 webapp/node_modules/
 webapp/test-results/
 webapp/playwright-report/
+
+# Python model weights — too large for git
+models/
+
+# Python virtual environments
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Python egg / dist
+*.egg-info/
+dist/
+build/

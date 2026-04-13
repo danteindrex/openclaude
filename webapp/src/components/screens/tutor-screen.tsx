@@ -15,8 +15,11 @@ import type {
 
 type RuntimeStatus = {
   grpcReady: boolean;
-  ollamaReady: boolean;
+  vllmReady: boolean;
   model: string | null;
+  currentModelId: string | null;
+  availableModels: string[];
+  modelDetails: { id: string; label: string }[];
 };
 
 type ClientEvent =
@@ -56,11 +59,40 @@ export function TutorScreen() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   useEffect(() => {
-    void fetch("/api/tutor/status")
-      .then((response) => response.json())
-      .then((payload: RuntimeStatus) => setRuntimeStatus(payload))
-      .catch((error: Error) => setErrorMessage(error.message));
+    const fetchStatus = () => {
+      void fetch("/api/tutor/status")
+        .then((response) => response.json())
+        .then((payload: RuntimeStatus) => setRuntimeStatus(payload))
+        .catch((error: Error) => setErrorMessage(error.message));
+    };
+
+    fetchStatus(); // immediate first check
+    const interval = setInterval(fetchStatus, 10_000); // re-check every 10s
+    return () => clearInterval(interval);
   }, []);
+
+  async function handleModelChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    const folderId = e.target.value; // folder name, e.g. "qwen3.5-0.8b"
+    const detail = runtimeStatus?.modelDetails?.find(m => m.id === folderId);
+    const displayLabel = detail?.label ?? folderId;
+    try {
+      const res = await fetch("http://localhost:8000/switch_model", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ model_name: folderId })
+      });
+      if (res.ok) {
+        setRuntimeStatus(prev => prev ? { ...prev, model: displayLabel, currentModelId: folderId } : null);
+        setActivities(current => appendActivity(current, "Model Switched", `Switched to ${displayLabel}`, "success"));
+      } else {
+        const err = await res.json().catch(() => ({ detail: "Unknown error" }));
+        setErrorMessage(`Failed to switch model: ${err.detail ?? err}`);
+      }
+    } catch(err) {
+      setErrorMessage("Failed to reach Python backend to switch model.");
+    }
+  }
+
 
   useEffect(() => {
     let cancelled = false;
@@ -87,19 +119,16 @@ export function TutorScreen() {
     };
   }, []);
 
-  const canSend = Boolean(sessionId && runtimeStatus?.grpcReady && runtimeStatus?.ollamaReady);
+  const canSend = Boolean(sessionId && (runtimeStatus?.vllmReady || runtimeStatus?.availableModels?.length));
 
   const headerCopy = useMemo(() => {
     if (!runtimeStatus) {
-      return "Checking backend and Ollama status...";
+      return "Checking Python AI backend status...";
     }
-    if (!runtimeStatus.grpcReady) {
-      return "OpenClaude gRPC backend is offline.";
+    if (!runtimeStatus.vllmReady && !runtimeStatus.availableModels?.length) {
+      return "Python AI backend is offline. Start vllm_server.py to continue.";
     }
-    if (!runtimeStatus.ollamaReady) {
-      return "Ollama is offline or not reachable.";
-    }
-    return "Live tutoring is connected to OpenClaude and Ollama.";
+    return `Live tutoring is connected — model: ${runtimeStatus.model ?? runtimeStatus.availableModels?.[0] ?? "loading..."}`;  
   }, [runtimeStatus]);
 
   async function handleSend(message: string) {
@@ -301,16 +330,24 @@ export function TutorScreen() {
 
           <div className="space-y-3">
             <StatusPill
-              label="Backend"
-              tone={runtimeStatus?.grpcReady ? "good" : "bad"}
-              value={runtimeStatus?.grpcReady ? "online" : "offline"}
+              label="Python AI"
+              tone={(runtimeStatus?.vllmReady || runtimeStatus?.availableModels?.length) ? "good" : "bad"}
+              value={(runtimeStatus?.vllmReady || runtimeStatus?.availableModels?.length) ? "online" : "offline"}
             />
-            <StatusPill
-              label="Ollama"
-              tone={runtimeStatus?.ollamaReady ? "good" : "bad"}
-              value={runtimeStatus?.ollamaReady ? "ready" : "down"}
-            />
-            <StatusPill label="Model" value={runtimeStatus?.model ?? "unset"} />
+            <div className="flex flex-col gap-1 mt-2">
+              <label className="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Model</label>
+              <select 
+                title="Select Local Model"
+                className="rounded-lg bg-surface-container-low px-3 py-2 text-sm text-on-surface shadow-neumorphic-inset outline-none"
+                value={runtimeStatus?.currentModelId ?? ""}
+                onChange={handleModelChange}
+              >
+                <option value="" disabled>Select model</option>
+                {(runtimeStatus?.modelDetails ?? []).map(m => (
+                  <option key={m.id} value={m.id}>{m.label}</option>
+                ))}
+              </select>
+            </div>
           </div>
 
           <div className="mt-8 rounded-[1.75rem] bg-surface-container-lowest p-5 shadow-neumorphic-raised">
@@ -335,14 +372,9 @@ export function TutorScreen() {
                 </div>
                 <div className="flex flex-wrap gap-2">
                   <StatusPill
-                    label="Backend"
-                    tone={runtimeStatus?.grpcReady ? "good" : "bad"}
-                    value={runtimeStatus?.grpcReady ? "online" : "offline"}
-                  />
-                  <StatusPill
-                    label="Ollama"
-                    tone={runtimeStatus?.ollamaReady ? "good" : "bad"}
-                    value={runtimeStatus?.ollamaReady ? "ready" : "down"}
+                    label="Python AI"
+                    tone={(runtimeStatus?.vllmReady || runtimeStatus?.availableModels?.length) ? "good" : "bad"}
+                    value={(runtimeStatus?.vllmReady || runtimeStatus?.availableModels?.length) ? "online" : "offline"}
                   />
                 </div>
               </div>

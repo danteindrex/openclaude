@@ -20,3 +20,61 @@ gRPC Server running at localhost:50051
 [grpc] generator event {"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","eventCount":5,"type":"stream_event","subtype":null,"elapsedMs":46291}
 [grpc] sent done response {"sessionId":"01fc4a65-3fb0-49e1-9fda-a2e98cbb6042","fullText":"API Error: Claude's response exceeded the 4096 output token maximum. To configure this behavior, set the CLAUDE_CODE_MAX_OUTPUT_TOKENS environment variable.","promptTokens":0,"completionTokens":0,"elapsedMs":99977}
 [grpc] stream end
+[grpc] Chat stream opened
+[grpc] received client message {"hasRequest":true,"hasInput":false,"hasCancel":false,"sessionId":"332b607d-7058-4210-b918-4a28652f921c","workingDirectory":"C:\\Users\\user\\Documents\\elimo ai\\openclaude\\webapp","model":"qwen3.5:0.8b"}
+[grpc] submitMessage start {"sessionId":"332b607d-7058-4210-b918-4a28652f921c","messageLength":24,"cwd":"C:\\Users\\user\\Documents\\elimo ai\\openclaude\\webapp","model":"qwen3.5:0.8b"}
+[grpc] generator event {"sessionId":"332b607d-7058-4210-b918-4a28652f921c","eventCount":1,"type":"system","subtype":"init","elapsedMs":56}
+[grpc] generator event {"sessionId":"332b607d-7058-4210-b918-4a28652f921c","eventCount":2,"type":"stream_event","subtype":null,"elapsedMs":59246}
+[grpc] generator event {"sessionId":"332b607d-7058-4210-b918-4a28652f921c","eventCount":3,"type":"stream_event","subtype":null,"elapsedMs":63062}
+[grpc] generator event {"sessionId":"332b607d-7058-4210-b918-4a28652f921c","eventCount":4,"type":"stream_event","subtype":null,"elapsedMs":63064}
+[grpc] generator event {"sessionId":"332b607d-7058-4210-b918-4a28652f921c","eventCount":5,"type":"stream_event","subtype":null,"elapsedMs":63149}
+[grpc] sent done response {"sessionId":"332b607d-7058-4210-b918-4a28652f921c","fullText":"API Error: Claude's response exceeded the 4096 output token maximum. To configure this behavior, set the CLAUDE_CODE_MAX_OUTPUT_TOKENS environment variable.","promptTokens":0,"completionTokens":0,"elapsedMs":151494}
+[grpc] stream end
+[grpc] Chat stream opened
+[grpc] received client message {"hasRequest":true,"hasInput":false,"hasCancel":false,"sessionId":"56b8f491-8a52-448c-a6bd-d99caa2350e1","workingDirectory":"C:\\Users\\user\\Documents\\elimo ai\\openclaude\\webapp","model":"qwen3.5:0.8b"}
+[grpc] submitMessage start {"sessionId":"56b8f491-8a52-448c-a6bd-d99caa2350e1","messageLength":92,"cwd":"C:\\Users\\user\\Documents\\elimo ai\\openclaude\\webapp","model":"qwen3.5:0.8b"}
+[grpc] generator event {"sessionId":"56b8f491-8a52-448c-a6bd-d99caa2350e1","eventCount":1,"type":"system","subtype":"init","elapsedMs":6}
+[grpc] generator event {"sessionId":"56b8f491-8a52-448c-a6bd-d99caa2350e1","eventCount":2,"type":"stream_event","subtype":null,"elapsedMs":54935}
+[grpc] generator event {"sessionId":"56b8f491-8a52-448c-a6bd-d99caa2350e1","eventCount":3,"type":"stream_event","subtype":null,"elapsedMs":61400}
+[grpc] generator event {"sessionId":"56b8f491-8a52-448c-a6bd-d99caa2350e1","eventCount":4,"type":"stream_event","subtype":null,"elapsedMs":61405}
+[grpc] generator event {"sessionId":"56b8f491-8a52-448c-a6bd-d99caa2350e1","eventCount":5,"type":"stream_event","subtype":null,"elapsedMs":83725}
+[grpc] sent done response {"sessionId":"56b8f491-8a52-448c-a6bd-d99caa2350e1","fullText":"I understand you want me to pause and pick up mid-thought. Could you please share what work is still needed?","promptTokens":0,"completionTokens":0,"elapsedMs":124056}
+[grpc] stream end
+[grpc] Chat stream opened
+[grpc] received client message {"hasRequest":true,"hasInput":false,"hasCancel":false,"sessionId":"56b8f491-8a52-448c-a6bd-d99caa2350e1","workingDirectory":"C:\\Users\\user\\Documents\\elimo ai\\openclaude\\webapp","model":"qwen3.5:0.8b"}
+[grpc] submitMessage start {"sessionId":"56b8f491-8a52-448c-a6bd-d99caa2350e1","messageLength":25,"cwd":"C:\\Users\\user\\Documents\\elimo ai\\openclaude\\webapp","model":"qwen3.5:0.8b"}
+[grpc] generator event {"sessionId":"56b8f491-8a52-448c-a6bd-d99caa2350e1","eventCount":1,"type":"system","subtype":"init","elapsedMs":3}
+[grpc] generator event {"sessionId":"56b8f491-8a52-448c-a6bd-d99caa2350e1","eventCount":2,"type":"stream_event","subtype":null,"elapsedMs":21577}
+[grpc] generator event {"sessionId":"56b8f491-8a52-448c-a6bd-d99caa2350e1","eventCount":3,"type":"stream_event","subtype":null,"elapsedMs":27836}
+[grpc] generator event {"sessionId":"56b8f491-8a52-448c-a6bd-d99caa2350e1","eventCount":4,"type":"stream_event","subtype":null,"elapsedMs":27837}
+[grpc] generator event {"sessionId":"56b8f491-8a52-448c-a6bd-d99caa2350e1","eventCount":5,"type":"stream_event","subtype":null,"elapsedMs":51827}
+[grpc] sent done response {"sessionId":"56b8f491-8a52-448c-a6bd-d99caa2350e1","fullText":"API Error: Claude's response exceeded the 4096 output token maximum. To configure this behavior, set the CLAUDE_CODE_MAX_OUTPUT_TOKENS environment variable.","promptTokens":0,"completionTokens":0,"elapsedMs":125969}
+[grpc] stream end
+[grpc] Chat stream opened
+[grpc] received client message {"hasRequest":true,"hasInput":false,"hasCancel":false,"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","workingDirectory":"C:\\Users\\user\\Downloads\\notes","model":"qwen3.5:0.8b"}
+[grpc] submitMessage start {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","messageLength":10,"cwd":"C:\\Users\\user\\Downloads\\notes","model":"qwen3.5:0.8b"}
+[grpc] generator event {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","eventCount":1,"type":"system","subtype":"init","elapsedMs":7}
+[grpc] generator event {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","eventCount":2,"type":"stream_event","subtype":null,"elapsedMs":65317}
+[grpc] generator event {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","eventCount":3,"type":"stream_event","subtype":null,"elapsedMs":70406}
+[grpc] generator event {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","eventCount":4,"type":"stream_event","subtype":null,"elapsedMs":70407}
+[grpc] generator event {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","eventCount":5,"type":"stream_event","subtype":null,"elapsedMs":70511}
+[grpc] sent done response {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","fullText":"API Error: Claude's response exceeded the 4096 output token maximum. To configure this behavior, set the CLAUDE_CODE_MAX_OUTPUT_TOKENS environment variable.","promptTokens":0,"completionTokens":0,"elapsedMs":173691}
+[grpc] stream end
+[grpc] Chat stream opened
+[grpc] received client message {"hasRequest":true,"hasInput":false,"hasCancel":false,"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","workingDirectory":"C:\\Users\\user\\Downloads\\notes","model":"qwen3.5:0.8b"}
+[grpc] submitMessage start {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","messageLength":10,"cwd":"C:\\Users\\user\\Downloads\\notes","model":"qwen3.5:0.8b"}
+[grpc] generator event {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","eventCount":1,"type":"system","subtype":"init","elapsedMs":19}
+[grpc] generator event {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","eventCount":2,"type":"stream_event","subtype":null,"elapsedMs":96148}
+[grpc] generator event {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","eventCount":3,"type":"stream_event","subtype":null,"elapsedMs":101243}
+[grpc] generator event {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","eventCount":4,"type":"stream_event","subtype":null,"elapsedMs":101245}
+[grpc] generator event {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","eventCount":5,"type":"stream_event","subtype":null,"elapsedMs":101354}
+[grpc] sent done response {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","fullText":"API Error: The operation timed out.","promptTokens":0,"completionTokens":0,"elapsedMs":366383}
+[grpc] stream end
+[grpc] Chat stream opened
+[grpc] received client message {"hasRequest":true,"hasInput":false,"hasCancel":false,"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","workingDirectory":"C:\\Users\\user\\Downloads\\notes","model":"qwen3.5:0.8b"}
+[grpc] submitMessage start {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","messageLength":23,"cwd":"C:\\Users\\user\\Downloads\\notes","model":"qwen3.5:0.8b"}
+[grpc] generator event {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","eventCount":1,"type":"system","subtype":"init","elapsedMs":1}
+[grpc] generator event {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","eventCount":2,"type":"assistant","subtype":null,"elapsedMs":293695}
+[grpc] generator event {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","eventCount":3,"type":"result","subtype":"success","elapsedMs":293696}
+[grpc] sent done response {"sessionId":"c1ca3d04-0fd2-4ce7-9f3a-3c9bcc59cd11","fullText":"API Error: The operation timed out.","promptTokens":0,"completionTokens":0,"elapsedMs":293698}
+[grpc] stream end
